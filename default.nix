@@ -1,7 +1,9 @@
 { pkgs ? import <nixpkgs> {} }:
 
 {
-  firefox-with-extensions = pkgs.callPackage ./firefox.nix {};
+  firefox-with-extensions = import ./firefox.nix {
+    inherit (pkgs) wrapFirefox firefox-unwrapped fetchFirefoxAddon;
+  };
   context-vim = pkgs.callPackage ./context-vim.nix { inherit pkgs; };
   glfw-wayland = pkgs.callPackage ./glfw.nix {};
   gruvbox-gtk = pkgs.callPackage ./gruvbox-gtk.nix {};
