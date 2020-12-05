@@ -1,6 +1,6 @@
-{ vimUtils }:
+{ pkgs }:
 
-vimUtils.buildVimPlugin rec {
+pkgs.vimUtils.buildVimPlugin rec {
   pname = "context";
   version = "2020-11-02";
   src = pkgs.fetchFromGitHub {
