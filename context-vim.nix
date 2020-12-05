@@ -1,9 +1,9 @@
-{ pkgs }:
+{ fetchFromGitHub, vimUtils }:
 
-pkgs.vimUtils.buildVimPlugin rec {
+vimUtils.buildVimPlugin rec {
   pname = "context";
   version = "2020-11-02";
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "wellle";
     repo = "context.vim";
     rev = "master";
