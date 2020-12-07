@@ -1,7 +1,7 @@
 { wrapFirefox, firefox-unwrapped, fetchFirefoxAddon }:
 
 wrapFirefox firefox-unwrapped {
-  extraExtensions = [
+  nixExtensions = [
     (fetchFirefoxAddon {
       name = "ublock-origin";
       url = "https://addons.mozilla.org/firefox/downloads/file/3679754/ublock_origin-1.31.0-an+fx.xpi";
@@ -37,5 +37,6 @@ wrapFirefox firefox-unwrapped {
       ExtensionRecommendations = false;
       SkipOnboarding = true;
     };
+    DisableSetDesktopBackground = true;
   };
 }
