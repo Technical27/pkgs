@@ -1,30 +1,48 @@
 diff --git a/scripts/cpufreqctl.sh b/scripts/cpufreqctl.sh
-index 63a2b5b..e46f62e 100755
+index 63a2b5b..bfadb05 100755
 --- a/scripts/cpufreqctl.sh
 +++ b/scripts/cpufreqctl.sh
-@@ -35,6 +35,8 @@ case $i in
- esac
- done
+@@ -467,35 +467,17 @@ fi
  
-+echo $VALUE
-+
- function help () {
-   echo "Package version: "$VERSION
-   echo "Usage:"
-@@ -263,6 +265,8 @@ function set_energy_performance_preference () {
-     i=0
-     while [ $i -ne $cpucount ]
-     do
-+      echo $FLNM >&2
-+      echo $VALUE >&2
-       FLNM="$FLROOT/cpu"$i"/cpufreq/energy_performance_preference"
-       echo $VALUE > $FLNM
-       i=`expr $i + 1`
+ if [ $OPTION = "--install" ]
+ then
+-  echo 'installing helpers...'
+-  cp $0 /usr/bin/
+-  echo 'installing policy...'
+-  cp $(dirname "$(readlink -f "$0")")/konkor.cpufreq.policy /usr/share/polkit-1/actions/
+-  echo 'installing fonts...'
+-  mkdir -p /usr/share/fonts/truetype/cpufreq
+-  cp $(dirname "$(readlink -f "$0")")/fonts/cpufreq.ttf /usr/share/fonts/truetype/cpufreq/
+-  echo "done"
+   exit
+ fi
+ if [ $OPTION = "--update-fonts" ]
+ then
+-  fc-cache -f
+   exit
+ fi
+ if [ $OPTION = "--uninstall" ]
+ then
+-  echo 'uninstalling cpufreqctl helper...'
+-  rm /usr/bin/cpufreqctl
+-  echo 'uninstalling policy...'
+-  rm /usr/share/polkit-1/actions/konkor.cpufreq.policy
+-  echo 'uninstalling fonts...'
+-  rm -rf /usr/share/fonts/truetype/cpufreq
+-  echo "done"
+   exit
+ fi
+ if [ $OPTION = "--reset" ]
+ then
+-  echo 'reset to default values...'
+-  dconf reset -f "/org/gnome/shell/extensions/cpufreq/"
+   exit
+ fi
 diff --git a/source/core.py b/source/core.py
-index 531c0c4..84c9101 100644
+index 531c0c4..da78d2a 100644
 --- a/source/core.py
 +++ b/source/core.py
-@@ -24,13 +24,11 @@ warnings.filterwarnings("ignore")
+@@ -24,8 +24,6 @@ warnings.filterwarnings("ignore")
  # - re-enable CPU fan speed display and make more generic and not only for thinkpad
  # - replace get system/CPU load from: psutil.getloadavg() | available in 5.6.2)
  
@@ -33,22 +51,7 @@ index 531c0c4..84c9101 100644
  # from the highest performance to the lowest
  ALL_GOVERNORS = ("performance", "ondemand", "conservative", "schedutil", "userspace", "powersave")
  CPUS = os.cpu_count()
- 
--# Note: 
-+# Note:
- # "load1m" & "cpuload" can't be global vars and to in order to show correct data must be
- # decraled where their execution takes place
- 
-@@ -95,7 +93,7 @@ def turbo(value: bool = None):
- 
-  # display current state of turbo
- def get_turbo():
--   
-+
-     if turbo():
-         print("Currently turbo boost is: on")
-     else:
-@@ -156,34 +154,16 @@ def cpufreqctl():
+@@ -156,34 +154,14 @@ def cpufreqctl():
      """
      deploy cpufreqctl script
      """
@@ -63,7 +66,6 @@ index 531c0c4..84c9101 100644
 -            shutil.copy(SCRIPTS_DIR / "cpufreqctl.sh", "/usr/bin/cpufreqctl")
 -        else:
 -            shutil.copy(SCRIPTS_DIR / "cpufreqctl.sh", "/usr/bin/cpufreqctl")
-+    # script is already in the right place
 +    pass
  
  
@@ -82,12 +84,11 @@ index 531c0c4..84c9101 100644
 -        # ToDo: implement mechanism to make sure cpufreqctl (auto-cpufreq) file is
 -        # restored if overwritten by system. But during tool removal to also remove it
 -        # in def cpufreqctl
-+    # don't attempt to delete the script
 +    pass
  
  
  def footer(l=79):
-@@ -209,71 +189,12 @@ def remove_complete_msg():
+@@ -209,71 +187,12 @@ def remove_complete_msg():
  
  
  def deploy_daemon():
@@ -161,56 +162,7 @@ index 531c0c4..84c9101 100644
  
  def gov_check():
      for gov in get_avail_gov():
-@@ -349,7 +270,7 @@ def set_powersave():
-             turbo(False)
-         else:
-             print("setting turbo boost: off")
--            turbo(False)  
-+            turbo(False)
- 
-     elif load1m > powersave_load_threshold:
-         print("\nHigh system load")
-@@ -370,7 +291,7 @@ def set_powersave():
- 
-     else:
-         print("\nLoad optimal")
--        
-+
-         # high cpu usage trigger
-         if cpuload >= 20:
-             print("setting turbo boost: on")
-@@ -420,7 +341,7 @@ def mon_powersave():
- 
-     elif load1m > powersave_load_threshold:
-         print("\nHigh system load")
--        
-+
-         # high cpu usage trigger
-         if cpuload >= 20:
-             print("suggesting to set turbo boost: on")
-@@ -434,10 +355,10 @@ def mon_powersave():
-         else:
-             print("suggesting to set turbo boost: off")
-             get_turbo()
-- 
-+
-     else:
-         print("\nLoad optimal")
--        
-+
-         # high cpu usage trigger
-         if cpuload >= 20:
-             print("suggesting to set turbo boost: on")
-@@ -523,7 +444,7 @@ def set_performance():
-         else:
-             print("setting turbo boost: on")
-             turbo(True)
--            
-+
-     footer()
- 
- 
-@@ -798,4 +719,4 @@ def running_daemon():
+@@ -798,4 +717,4 @@ def running_daemon():
          exit(1)
      elif os.getenv("PKG_MARKER") == "SNAP" and dcheck == "enabled":
          deploy_complete_msg()
