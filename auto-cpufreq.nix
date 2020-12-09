@@ -18,5 +18,8 @@ buildPythonPackage rec {
 
   postInstall = ''
     cp ${src}/scripts/cpufreqctl.sh $out/bin/cpufreqctl
+
+    mkdir -p $out/lib/systemd/system
+    cp ${src}/scripts/auto-cpufreq.service $out/lib/systemd/system
   '';
 }
