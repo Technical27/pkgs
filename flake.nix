@@ -17,7 +17,19 @@
     nixosModules.auto-cpufreq = { pkgs, ... }: {
       nixpkgs.overlays = [ self.overlay ];
       environment.systemPackages = [ pkgs.auto-cpufreq ];
-      systemd.packages = [ pkgs.auto-cpufreq ];
+
+      systemd.services.auto-cpufreq = {
+        description = "auto-cpufreq - Automatic CPU speed & power optimizer for Linux";
+        after = [ "network.target" "network-online.target" ];
+        unitConfig.ConditionPathExists = "/var/log/auto-cpufreq.log";
+        serviceConfig = {
+          Type = "simple";
+          User = "root";
+          ExecStart = "${pkgs.auto-cpufreq}/bin/auto-cpufreq --daemon";
+          StandardOutput = "append:/var/log/auto-cpufreq.log";
+        };
+        wantedBy = [ "multi-user.target" ];
+      }
     };
   };
 }
