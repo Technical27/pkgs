@@ -14,10 +14,8 @@
       gruvbox-gtk = prev.callPackage ./gruvbox-gtk.nix {};
       gruvbox-icons = prev.callPackage ./gruvbox-icons.nix {};
     };
-    nixosModule = { ... }: {
-      nixpkgs.overlays = [ self.overlay ];
-    };
     nixosModules.auto-cpufreq = { pkgs, ... }: {
+      nixpkgs.overlays = [ self.overlay ];
       environment.systemPackages = [ pkgs.auto-cpufreq ];
       systemd.packages = [ pkgs.auto-cpufreq ];
     };
