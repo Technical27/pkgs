@@ -29,7 +29,7 @@
           StandardOutput = "append:/var/log/auto-cpufreq.log";
         };
         wantedBy = [ "multi-user.target" ];
-      }
+      };
     };
   };
 }
