@@ -17,7 +17,7 @@
       gruvbox-icons = nixpkgs.callPackage ./gruvbox-icons.nix {};
     };
     nixosModules.auto-cpufreq = { pkgs, ... }: {
-      inherit self.legacyPackages.x86_64-linux.auto-cpufreq;
+      inherit (self.legacyPackages.x86_64-linux) auto-cpufreq;
       environment.systemPackages = [ auto-cpufreq ];
 
       systemd.services.auto-cpufreq = {
