@@ -4,21 +4,21 @@
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
   outputs = { self, nixpkgs }: {
-    overlay = final: prev: {
-      auto-cpufreq = prev.callPackage ./auto-cpufreq.nix {
-        pythonPackages = prev.python3Packages;
+    legacyPackages.x86_64-linux = {
+      auto-cpufreq = nixpkgs.callPackage ./auto-cpufreq.nix {
+        pythonPackages = nixpkgs.python3Packages;
       };
       firefox-with-extensions = import ./firefox.nix {
-        inherit (prev) wrapFirefox firefox-unwrapped fetchFirefoxAddon;
+        inherit (nixpkgs) wrapFirefox firefox-unwrapped fetchFirefoxAddon;
       };
-      context-vim = prev.callPackage ./context-vim.nix {};
-      glfw-wayland = prev.callPackage ./glfw.nix {};
-      gruvbox-gtk = prev.callPackage ./gruvbox-gtk.nix {};
-      gruvbox-icons = prev.callPackage ./gruvbox-icons.nix {};
+      context-vim = nixpkgs.callPackage ./context-vim.nix {};
+      glfw-wayland = nixpkgs.callPackage ./glfw.nix {};
+      gruvbox-gtk = nixpkgs.callPackage ./gruvbox-gtk.nix {};
+      gruvbox-icons = nixpkgs.callPackage ./gruvbox-icons.nix {};
     };
     nixosModules.auto-cpufreq = { pkgs, ... }: {
-      nixpkgs.overlays = [ self.overlay ];
-      environment.systemPackages = [ pkgs.auto-cpufreq ];
+      inherit self.legacyPackages.x86_64-linux.auto-cpufreq;
+      environment.systemPackages = [ auto-cpufreq ];
 
       systemd.services.auto-cpufreq = {
         description = "auto-cpufreq - Automatic CPU speed & power optimizer for Linux";
@@ -27,7 +27,7 @@
         serviceConfig = {
           Type = "simple";
           User = "root";
-          ExecStart = "${pkgs.auto-cpufreq}/bin/auto-cpufreq --daemon";
+          ExecStart = "${auto-cpufreq}/bin/auto-cpufreq --daemon";
           StandardOutput = "append:/var/log/auto-cpufreq.log";
         };
         wantedBy = [ "multi-user.target" ];
