@@ -19,7 +19,7 @@
         glfw-wayland = prev.callPackage ./glfw.nix {};
         gruvbox-gtk = prev.callPackage ./gruvbox-gtk.nix {};
         gruvbox-icons = prev.callPackage ./gruvbox-icons.nix {};
-        steam = prev.steam.override { extraPackages = [ final.mesa ]; };
+        steam = prev.steam.override { extraPkgs = pkgs: [ pkgs.mesa ]; };
       };
     };
 
