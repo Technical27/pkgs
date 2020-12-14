@@ -9,8 +9,8 @@ wrapFirefox firefox-unwrapped {
     })
     (fetchFirefoxAddon {
       name = "lastpass";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3657084/lastpass_password_manager-4.58.0.4-an+fx.xpi";
-      sha256 = "0dbkmhya5lpdphssnd966xsfplzv1nmbq6sfdqg0rklgk61rscvf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3693247/lastpass_password_manager-4.62.0.6-an+fx.xpi";
+      sha256 = "130kwpxf1m55rd6vikv54c62nbgx5immvhwigvg44i743w3cck2f";
     })
     (fetchFirefoxAddon {
       name = "https-everywhere";
@@ -21,6 +21,16 @@ wrapFirefox firefox-unwrapped {
       name = "vuejs-devtools";
       url = "https://addons.mozilla.org/firefox/downloads/file/3454607/vuejs_devtools-5.3.3-fx.xpi";
       sha256 = "06ycn1bj00dh9klwg7bz23psgszcd02xp3668kfwvbbz9nnvvnsk";
+    })
+    (fetchFirefoxAddon {
+      name = "cookie-auto-delete";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3630305/cookie_autodelete-3.5.1-an+fx.xpi";
+      sha256 = "1v5b978kh8cxg4ckjb0mnnz2r5dngwp4i097i2lp7rf093jdv8vs";
+    })
+    (fetchFirefoxAddon {
+      name = "firefox-containers";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3650825/firefox_multi_account_containers-7.1.0-fx.xpi";
+      sha256 = "0iqcz9girvzg3dipyjvkr37q7q7a9l2ap1whakh9s6c36y660yxa";
     })
   ];
   extraPolicies = {
