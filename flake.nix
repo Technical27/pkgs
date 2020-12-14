@@ -27,8 +27,11 @@
       overlays = [ self.overlay ];
     }).cpkgs);
 
-    nixosModules.auto-cpufreq = { pkgs, ... }: with pkgs; {
+    nixosModule = { ... }: {
       nixpkgs.overlays = [ self.overlay ];
+    };
+
+    nixosModules.auto-cpufreq = { pkgs, ... }: with pkgs; {
       environment.systemPackages = [ cpkgs.auto-cpufreq ];
 
       systemd.services.auto-cpufreq = {
