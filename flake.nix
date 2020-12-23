@@ -18,6 +18,7 @@
         gruvbox-gtk = prev.callPackage ./gruvbox-gtk.nix {};
         gruvbox-icons = prev.callPackage ./gruvbox-icons.nix {};
         liquidctl = prev.callPackage ./liquidctl.nix {};
+        mcbedrock = prev.callPackage ./mcbedrock.nix {};
         steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
       };
     };
