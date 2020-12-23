@@ -19,6 +19,7 @@
         glfw-wayland = prev.callPackage ./glfw.nix {};
         gruvbox-gtk = prev.callPackage ./gruvbox-gtk.nix {};
         gruvbox-icons = prev.callPackage ./gruvbox-icons.nix {};
+        liquidctl = prev.callPackage ./liquidctl.nix {};
         steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
       };
     };
