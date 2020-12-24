@@ -1,8 +1,8 @@
 diff --git a/scripts/cpufreqctl.sh b/scripts/cpufreqctl.sh
-index 63a2b5b..bfadb05 100755
+index 63a2b5b..e157efe 100755
 --- a/scripts/cpufreqctl.sh
 +++ b/scripts/cpufreqctl.sh
-@@ -467,35 +467,17 @@ fi
+@@ -467,35 +467,21 @@ fi
  
  if [ $OPTION = "--install" ]
  then
@@ -14,11 +14,13 @@ index 63a2b5b..bfadb05 100755
 -  mkdir -p /usr/share/fonts/truetype/cpufreq
 -  cp $(dirname "$(readlink -f "$0")")/fonts/cpufreq.ttf /usr/share/fonts/truetype/cpufreq/
 -  echo "done"
++  echo "install is disabled in the nix package"
    exit
  fi
  if [ $OPTION = "--update-fonts" ]
  then
 -  fc-cache -f
++  echo "update-fonts is disabled in the nix package"
    exit
  fi
  if [ $OPTION = "--uninstall" ]
@@ -30,16 +32,18 @@ index 63a2b5b..bfadb05 100755
 -  echo 'uninstalling fonts...'
 -  rm -rf /usr/share/fonts/truetype/cpufreq
 -  echo "done"
++  echo "uninstall is disabled in the nix package"
    exit
  fi
  if [ $OPTION = "--reset" ]
  then
 -  echo 'reset to default values...'
 -  dconf reset -f "/org/gnome/shell/extensions/cpufreq/"
++  echo "reset is disabled in the nix package"
    exit
  fi
 diff --git a/source/core.py b/source/core.py
-index 531c0c4..da78d2a 100644
+index 531c0c4..2e27e65 100644
 --- a/source/core.py
 +++ b/source/core.py
 @@ -24,8 +24,6 @@ warnings.filterwarnings("ignore")
@@ -51,7 +55,7 @@ index 531c0c4..da78d2a 100644
  # from the highest performance to the lowest
  ALL_GOVERNORS = ("performance", "ondemand", "conservative", "schedutil", "userspace", "powersave")
  CPUS = os.cpu_count()
-@@ -156,34 +154,14 @@ def cpufreqctl():
+@@ -156,34 +154,16 @@ def cpufreqctl():
      """
      deploy cpufreqctl script
      """
@@ -66,6 +70,7 @@ index 531c0c4..da78d2a 100644
 -            shutil.copy(SCRIPTS_DIR / "cpufreqctl.sh", "/usr/bin/cpufreqctl")
 -        else:
 -            shutil.copy(SCRIPTS_DIR / "cpufreqctl.sh", "/usr/bin/cpufreqctl")
++    # scripts are already in the correct place
 +    pass
  
  
@@ -84,11 +89,12 @@ index 531c0c4..da78d2a 100644
 -        # ToDo: implement mechanism to make sure cpufreqctl (auto-cpufreq) file is
 -        # restored if overwritten by system. But during tool removal to also remove it
 -        # in def cpufreqctl
++    # no need to restore
 +    pass
  
  
  def footer(l=79):
-@@ -209,71 +187,12 @@ def remove_complete_msg():
+@@ -209,71 +189,13 @@ def remove_complete_msg():
  
  
  def deploy_daemon():
@@ -119,6 +125,7 @@ index 531c0c4..da78d2a 100644
 -    shutil.copy(SCRIPTS_DIR / "auto-cpufreq-remove.sh", "/usr/bin/auto-cpufreq-remove")
 -
 -    call("/usr/bin/auto-cpufreq-install", shell=True)
++    # prevent needless copying and system changes
 +    pass
  
  
@@ -162,7 +169,7 @@ index 531c0c4..da78d2a 100644
  
  def gov_check():
      for gov in get_avail_gov():
-@@ -798,4 +717,4 @@ def running_daemon():
+@@ -798,4 +720,4 @@ def running_daemon():
          exit(1)
      elif os.getenv("PKG_MARKER") == "SNAP" and dcheck == "enabled":
          deploy_complete_msg()

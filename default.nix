@@ -8,5 +8,5 @@
   glfw-wayland = pkgs.callPackage ./glfw.nix {};
   gruvbox-gtk = pkgs.callPackage ./gruvbox-gtk.nix {};
   gruvbox-icons = pkgs.callPackage ./gruvbox-icons.nix {};
-  auto-cpufreq = pkgs.callPackage ./auto-cpufreq.nix { pythonPackages = pkgs.python3Packages; };
+  auto-cpufreq = pkgs.callPackage ./auto-cpufreq.nix {};
 }

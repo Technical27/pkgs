@@ -1,7 +1,6 @@
-{ lib, pythonPackages, fetchFromGitHub }:
-with pythonPackages;
+{ stdenv, python3Packages, fetchFromGitHub }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "auto-cpufreq";
   version = "1.5.1";
 
@@ -9,12 +8,12 @@ buildPythonPackage rec {
     owner = "AdnanHodzic";
     repo = pname;
     rev = "v${version}";
-    sha256 = "18wvr4abnsiz1v96c7b1c4r30iq0d7rpx3js0apy1kv5wgbcxgfj";
+    sha256 = "09zkq74cz73hkzirhlsyq9b3kgbd10i7r033mid59lc2dz20wvc4";
   };
 
-  propagatedBuildInputs = [ click distro psutil ];
+  propagatedBuildInputs = with python3Packages; [ click distro psutil ];
 
-  patches = [ ./auto-cpufreq.patch ];
+  patches = [ ./prevent-install-and-copy.patch ];
 
   postInstall = ''
     cp ${src}/scripts/cpufreqctl.sh $out/bin/cpufreqctl

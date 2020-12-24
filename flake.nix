@@ -9,9 +9,7 @@
   in {
     overlay = final: prev: {
       cpkgs = {
-        auto-cpufreq = prev.callPackage ./auto-cpufreq.nix {
-          pythonPackages = prev.python3Packages;
-        };
+        auto-cpufreq = prev.callPackage ./auto-cpufreq.nix {};
         firefox-with-extensions = import ./firefox.nix {
           inherit (prev) wrapFirefox firefox-unwrapped fetchFirefoxAddon;
         };
