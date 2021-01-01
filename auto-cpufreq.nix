@@ -11,6 +11,9 @@ python3Packages.buildPythonPackage rec {
     sha256 = "sha256-uVhftO6AqFnZ0uaEYRAPvVskkouNOXPtNVYXx7WJKyw=";
   };
 
+  doCheck = false;
+  pythonImportsCheck = [ "source" ];
+
   propagatedBuildInputs = with python3Packages; [ click distro psutil ];
 
   patches = [ ./prevent-install-and-copy.patch ];
