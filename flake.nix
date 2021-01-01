@@ -20,6 +20,7 @@
         liquidctl = prev.callPackage ./liquidctl.nix {};
         mcbedrock = prev.callPackage ./mcbedrock.nix {};
         steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
+        polybar = prev.polybar.override { i3GapsSupport = true; };
       };
     };
 
