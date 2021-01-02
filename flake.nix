@@ -23,15 +23,15 @@
         polybar = prev.polybar.override { i3GapsSupport = true; };
         wgvpn = prev.writeTextFile {
           name = "wgvpn";
-          destination = "/bin/wgvpn";
+          destination = /bin/wgvpn;
           executable = true;
-          text = "${final.fish}/bin/fish\n" + builtins.readFile ./wgvpn.fish;
+          text = "#! ${final.fish}/bin/fish\n" + builtins.readFile ./wgvpn.fish;
         };
         startsway = prev.writeTextFile {
           name = "startsway";
-          destination = "/bin/startsway";
+          destination = /bin/startsway;
           executable = true;
-          text = "${final.fish}/bin/fish\n" + builtins.readFile ./startsway.fish;
+          text = "#! ${final.fish}/bin/fish\n" + builtins.readFile ./startsway.fish;
         };
       };
     };
