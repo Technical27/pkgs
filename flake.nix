@@ -21,6 +21,18 @@
         mcbedrock = prev.callPackage ./mcbedrock.nix {};
         steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
         polybar = prev.polybar.override { i3GapsSupport = true; };
+        wgvpn = prev.writeTextFile {
+          name = "wgvpn";
+          destination = "/bin/wgvpn";
+          executable = true;
+          text = "${final.fish}/bin/fish\n" + builtins.readFile ./wgvpn.fish;
+        };
+        startsway = prev.writeTextFile {
+          name = "startsway";
+          destination = "/bin/startsway";
+          executable = true;
+          text = "${final.fish}/bin/fish\n" + builtins.readFile ./startsway.fish;
+        };
       };
     };
 
