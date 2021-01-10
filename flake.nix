@@ -33,6 +33,16 @@
           executable = true;
           text = "#! ${final.fish}/bin/fish\n" + builtins.readFile ./startsway.fish;
         };
+        pipewire = prev.pipewire.overrideAttrs (old: rec {
+          version = "0.3.19";
+          src = prev.fetchFromGitLab {
+            domain = "gitlab.freedesktop.org";
+            owner = "pipewire";
+            repo = "pipewire";
+            rev = "0.3.19";
+            sha256 = "sha256-9zMDdy3Uqr4Ada5uMRuqTpzr5BjSDY5UjTo4g2InezE=";
+          };
+        });
       };
     };
 
