@@ -43,22 +43,16 @@ index 63a2b5b..e157efe 100755
    exit
  fi
 diff --git a/source/core.py b/source/core.py
-index 531c0c4..2e27e65 100644
+index 454e9c5..87b4f99 100644
 --- a/source/core.py
 +++ b/source/core.py
-@@ -24,8 +24,6 @@ warnings.filterwarnings("ignore")
- # - re-enable CPU fan speed display and make more generic and not only for thinkpad
- # - replace get system/CPU load from: psutil.getloadavg() | available in 5.6.2)
+@@ -162,37 +162,12 @@ def get_current_gov():
+     return print("Currently using:", getoutput("cpufreqctl --governor").strip().split(" ")[0], "governor")
  
--SCRIPTS_DIR = Path("/usr/local/share/auto-cpufreq/scripts/")
--
- # from the highest performance to the lowest
- ALL_GOVERNORS = ("performance", "ondemand", "conservative", "schedutil", "userspace", "powersave")
- CPUS = os.cpu_count()
-@@ -156,34 +154,16 @@ def cpufreqctl():
-     """
-     deploy cpufreqctl script
-     """
+ def cpufreqctl():
+-    """
+-    deploy cpufreqctl script
+-    """
 -
 -    # detect if running on a SNAP
 -    if os.getenv('PKG_MARKER') == "SNAP":
@@ -70,14 +64,14 @@ index 531c0c4..2e27e65 100644
 -            shutil.copy(SCRIPTS_DIR / "cpufreqctl.sh", "/usr/bin/cpufreqctl")
 -        else:
 -            shutil.copy(SCRIPTS_DIR / "cpufreqctl.sh", "/usr/bin/cpufreqctl")
+-
 +    # scripts are already in the correct place
 +    pass
  
- 
  def cpufreqctl_restore():
-     """
-     restore original cpufreqctl script
-     """
+-    """
+-    restore original cpufreqctl script
+-    """
 -    # detect if running on a SNAP
 -    if os.getenv('PKG_MARKER') == "SNAP":
 -        pass
@@ -94,7 +88,7 @@ index 531c0c4..2e27e65 100644
  
  
  def footer(l=79):
-@@ -209,71 +189,13 @@ def remove_complete_msg():
+@@ -218,72 +193,12 @@ def remove_complete_msg():
  
  
  def deploy_daemon():
@@ -116,7 +110,7 @@ index 531c0c4..2e27e65 100644
 -    except:
 -        print("\nERROR:\nWas unable to turn off bluetooth on boot")
 -
--    auto_cpufreq_log_file.touch(exist_ok=True)
+-    auto_cpufreq_log_path.touch(exist_ok=True)
 -
 -    print("\n* Deploy auto-cpufreq install script")
 -    shutil.copy(SCRIPTS_DIR / "auto-cpufreq-install.sh", "/usr/bin/auto-cpufreq-install")
@@ -125,9 +119,9 @@ index 531c0c4..2e27e65 100644
 -    shutil.copy(SCRIPTS_DIR / "auto-cpufreq-remove.sh", "/usr/bin/auto-cpufreq-remove")
 -
 -    call("/usr/bin/auto-cpufreq-install", shell=True)
+-
 +    # prevent needless copying and system changes
 +    pass
- 
  
  # remove auto-cpufreq daemon
  def remove():
@@ -136,7 +130,7 @@ index 531c0c4..2e27e65 100644
 -    if not os.path.exists("/usr/bin/auto-cpufreq-remove"):
 -        print("\nauto-cpufreq daemon is not installed.\n")
 -        sys.exit(1)
--        
+-
 -    print("\n" + "-" * 21 + " Removing auto-cpufreq daemon " + "-" * 22 + "\n")
 -
 -    print("* Turn on bluetooth on boot")
@@ -159,8 +153,9 @@ index 531c0c4..2e27e65 100644
 -    os.remove("/usr/bin/auto-cpufreq-remove")
 -
 -    # delete log file
--    if auto_cpufreq_log_file.exists():
--        auto_cpufreq_log_file.unlink()
+-    if auto_cpufreq_log_path.exists():
+-        auto_cpufreq_log_file.close()
+-        auto_cpufreq_log_path.unlink()
 -
 -    # restore original cpufrectl script
 -    cpufreqctl_restore()
@@ -169,10 +164,3 @@ index 531c0c4..2e27e65 100644
  
  def gov_check():
      for gov in get_avail_gov():
-@@ -798,4 +720,4 @@ def running_daemon():
-         exit(1)
-     elif os.getenv("PKG_MARKER") == "SNAP" and dcheck == "enabled":
-         deploy_complete_msg()
--        exit(1)
-\ No newline at end of file
-+        exit(1)
