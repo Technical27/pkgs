@@ -7,8 +7,8 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Technical27";
     repo = pname;
-    rev = "cb6ac6ad076fb6fca21acf30c2467d372e6ca077";
-    sha256 = "sha256-8rYNu/SP82YQ5YOb1qgP55wDFBZK4eiisRSjywcQCjg=";
+    rev = "36e7073ff438136f19cec55e106020125f0a6f97";
+    sha256 = "sha256-qmFq2AVwNj3NpN010r1Pn+TG1CzdcgSm/Ii8NAzY/K0=";
   };
 
   doCheck = false;
