@@ -1,53 +1,9 @@
-diff --git a/scripts/cpufreqctl.sh b/scripts/cpufreqctl.sh
-index 63a2b5b..e157efe 100755
---- a/scripts/cpufreqctl.sh
-+++ b/scripts/cpufreqctl.sh
-@@ -467,35 +467,21 @@ fi
- 
- if [ $OPTION = "--install" ]
- then
--  echo 'installing helpers...'
--  cp $0 /usr/bin/
--  echo 'installing policy...'
--  cp $(dirname "$(readlink -f "$0")")/konkor.cpufreq.policy /usr/share/polkit-1/actions/
--  echo 'installing fonts...'
--  mkdir -p /usr/share/fonts/truetype/cpufreq
--  cp $(dirname "$(readlink -f "$0")")/fonts/cpufreq.ttf /usr/share/fonts/truetype/cpufreq/
--  echo "done"
-+  echo "install is disabled in the nix package"
-   exit
- fi
- if [ $OPTION = "--update-fonts" ]
- then
--  fc-cache -f
-+  echo "update-fonts is disabled in the nix package"
-   exit
- fi
- if [ $OPTION = "--uninstall" ]
- then
--  echo 'uninstalling cpufreqctl helper...'
--  rm /usr/bin/cpufreqctl
--  echo 'uninstalling policy...'
--  rm /usr/share/polkit-1/actions/konkor.cpufreq.policy
--  echo 'uninstalling fonts...'
--  rm -rf /usr/share/fonts/truetype/cpufreq
--  echo "done"
-+  echo "uninstall is disabled in the nix package"
-   exit
- fi
- if [ $OPTION = "--reset" ]
- then
--  echo 'reset to default values...'
--  dconf reset -f "/org/gnome/shell/extensions/cpufreq/"
-+  echo "reset is disabled in the nix package"
-   exit
- fi
-diff --git a/source/core.py b/source/core.py
-index 454e9c5..87b4f99 100644
---- a/source/core.py
-+++ b/source/core.py
-@@ -162,37 +162,12 @@ def get_current_gov():
-     return print("Currently using:", getoutput("cpufreqctl --governor").strip().split(" ")[0], "governor")
+diff --git a/auto_cpufreq/core.py b/auto_cpufreq/core.py
+index 482a544..d142013 100644
+--- a/auto_cpufreq/core.py
++++ b/auto_cpufreq/core.py
+@@ -163,31 +163,13 @@ def get_current_gov():
+     return print("Currently using:", getoutput("cpufreqctl.auto-cpufreq --governor").strip().split(" ")[0], "governor")
  
  def cpufreqctl():
 -    """
@@ -58,37 +14,31 @@ index 454e9c5..87b4f99 100644
 -    if os.getenv('PKG_MARKER') == "SNAP":
 -        pass
 -    else:
--        # deploy cpufreqctl script (if missing)
+-        # deploy cpufreqctl.auto-cpufreq script
 -        if os.path.isfile("/usr/bin/cpufreqctl"):
--            shutil.copy("/usr/bin/cpufreqctl", "/usr/bin/cpufreqctl.auto-cpufreq.bak")
--            shutil.copy(SCRIPTS_DIR / "cpufreqctl.sh", "/usr/bin/cpufreqctl")
+-            shutil.copy(SCRIPTS_DIR / "cpufreqctl.sh", "/usr/bin/cpufreqctl.auto-cpufreq")
 -        else:
--            shutil.copy(SCRIPTS_DIR / "cpufreqctl.sh", "/usr/bin/cpufreqctl")
--
+-            shutil.copy(SCRIPTS_DIR / "cpufreqctl.sh", "/usr/bin/cpufreqctl.auto-cpufreq")
 +    # scripts are already in the correct place
 +    pass
  
+ 
  def cpufreqctl_restore():
 -    """
--    restore original cpufreqctl script
+-    remove cpufreqctl.auto-cpufreq script
 -    """
 -    # detect if running on a SNAP
 -    if os.getenv('PKG_MARKER') == "SNAP":
 -        pass
 -    else:
--        # restore original cpufreqctl script
--        if os.path.isfile("/usr/bin/cpufreqctl.auto-cpufreq.bak"):
--            os.system("cp /usr/bin/cpufreqctl.auto-cpufreq.bak /usr/bin/cpufreqctl")
--            os.remove("/usr/bin/cpufreqctl.auto-cpufreq.bak")
--        # ToDo: implement mechanism to make sure cpufreqctl (auto-cpufreq) file is
--        # restored if overwritten by system. But during tool removal to also remove it
--        # in def cpufreqctl
+-        if os.path.isfile("/usr/bin/cpufreqctl.auto-cpufreq"):
+-            os.remove("/usr/bin/cpufreqctl.auto-cpufreq")
 +    # no need to restore
 +    pass
  
- 
  def footer(l=79):
-@@ -218,72 +193,12 @@ def remove_complete_msg():
+     print("\n" + "-" * l + "\n")
+@@ -212,74 +194,12 @@ def remove_complete_msg():
  
  
  def deploy_daemon():
@@ -154,7 +104,9 @@ index 454e9c5..87b4f99 100644
 -
 -    # delete log file
 -    if auto_cpufreq_log_path.exists():
--        auto_cpufreq_log_file.close()
+-        if auto_cpufreq_log_file is not None:
+-            auto_cpufreq_log_file.close()
+-
 -        auto_cpufreq_log_path.unlink()
 -
 -    # restore original cpufrectl script
@@ -164,3 +116,47 @@ index 454e9c5..87b4f99 100644
  
  def gov_check():
      for gov in get_avail_gov():
+diff --git a/scripts/cpufreqctl.sh b/scripts/cpufreqctl.sh
+index 63a2b5b..e157efe 100755
+--- a/scripts/cpufreqctl.sh
++++ b/scripts/cpufreqctl.sh
+@@ -467,35 +467,21 @@ fi
+ 
+ if [ $OPTION = "--install" ]
+ then
+-  echo 'installing helpers...'
+-  cp $0 /usr/bin/
+-  echo 'installing policy...'
+-  cp $(dirname "$(readlink -f "$0")")/konkor.cpufreq.policy /usr/share/polkit-1/actions/
+-  echo 'installing fonts...'
+-  mkdir -p /usr/share/fonts/truetype/cpufreq
+-  cp $(dirname "$(readlink -f "$0")")/fonts/cpufreq.ttf /usr/share/fonts/truetype/cpufreq/
+-  echo "done"
++  echo "install is disabled in the nix package"
+   exit
+ fi
+ if [ $OPTION = "--update-fonts" ]
+ then
+-  fc-cache -f
++  echo "update-fonts is disabled in the nix package"
+   exit
+ fi
+ if [ $OPTION = "--uninstall" ]
+ then
+-  echo 'uninstalling cpufreqctl helper...'
+-  rm /usr/bin/cpufreqctl
+-  echo 'uninstalling policy...'
+-  rm /usr/share/polkit-1/actions/konkor.cpufreq.policy
+-  echo 'uninstalling fonts...'
+-  rm -rf /usr/share/fonts/truetype/cpufreq
+-  echo "done"
++  echo "uninstall is disabled in the nix package"
+   exit
+ fi
+ if [ $OPTION = "--reset" ]
+ then
+-  echo 'reset to default values...'
+-  dconf reset -f "/org/gnome/shell/extensions/cpufreq/"
++  echo "reset is disabled in the nix package"
+   exit
+ fi
