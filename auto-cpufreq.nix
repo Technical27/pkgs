@@ -23,5 +23,6 @@ python3Packages.buildPythonPackage rec {
 
     mkdir -p $out/lib/systemd/system
     cp ${src}/scripts/auto-cpufreq.service $out/lib/systemd/system
+    substituteInPlace $out/lib/systemd/system/auto-cpufreq.service --replace "/usr/local" $out
   '';
 }
