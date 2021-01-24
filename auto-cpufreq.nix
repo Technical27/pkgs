@@ -21,7 +21,7 @@ python3Packages.buildPythonPackage rec {
 
   postInstall = ''
     # copy script manually
-    cp ${src}/scripts/cpufreqctl.sh $out/bin/cpufreqctl
+    cp ${src}/scripts/cpufreqctl.sh $out/bin/cpufreqctl.auto-cpufreq
 
     # systemd service
     mkdir -p $out/lib/systemd/system
