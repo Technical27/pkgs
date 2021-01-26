@@ -59,6 +59,8 @@
       environment.systemPackages = [ cpkgs.auto-cpufreq ];
 
       systemd.packages = [ cpkgs.auto-cpufreq ];
+
+      systemd.services.auto-cpufreq.path = with pkgs; [ bash coreutils ];
     };
   };
 }
