@@ -30,6 +30,7 @@
         polybar = prev.polybar.override { i3GapsSupport = true; };
         wgvpn = mkFish "wgvpn";
         startsway = mkFish "startsway";
+        ibus-launch = mkFish "ibus-launch";
         pipewire = prev.pipewire.overrideAttrs (old: rec {
           version = "0.3.19";
           src = prev.fetchFromGitLab {
