@@ -6,12 +6,12 @@
   outputs = { self, nixpkgs }: let
     supportedSystems = [ "x86_64-linux" "i686-linux" "aarch64-linux" ];
     forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
-    mkFish = name: prev.writeTextFile {
+    mkFish = prev: name: prev.writeTextFile {
         inherit name;
         destination = "/bin/${name}";
         executable = true;
-        text = "#! ${final.fish}/bin/fish\n" +
-          builtins.readFile ./. + "${name}.fish";
+        text = "#! ${prev.fish}/bin/fish\n" +
+          builtins.readFile (./. + "/${name}.fish");
       };
   in {
     overlay = final: prev: {
@@ -28,9 +28,9 @@
         mcbedrock = prev.callPackage ./mcbedrock.nix {};
         steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
         polybar = prev.polybar.override { i3GapsSupport = true; };
-        wgvpn = mkFish "wgvpn";
-        startsway = mkFish "startsway";
-        ibus-launch = mkFish "ibus-launch";
+        wgvpn = mkFish prev "wgvpn";
+        startsway = mkFish prev "startsway";
+        ibus-launch = mkFish prev "ibus-launch";
         pipewire = prev.pipewire.overrideAttrs (old: rec {
           version = "0.3.19";
           src = prev.fetchFromGitLab {
