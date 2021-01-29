@@ -32,6 +32,11 @@ wrapFirefox firefox-unwrapped {
       url = "https://addons.mozilla.org/firefox/downloads/file/3650825/firefox_multi_account_containers-7.1.0-fx.xpi";
       sha256 = "0iqcz9girvzg3dipyjvkr37q7q7a9l2ap1whakh9s6c36y660yxa";
     })
+    (fetchFirefoxAddon{
+      name = "user-agent-switcher";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3700959/user_agent_switcher_and_manager-0.4.6-an+fx.xpi";
+      sha256 = "18cralk06i2ha6f23w2i1bvsq1ycwfbbv640965msb62qc59xxin";
+    })
   ];
   extraPolicies = {
     CaptivePortal = false;
