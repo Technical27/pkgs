@@ -26,7 +26,7 @@
         gruvbox-icons = prev.callPackage ./gruvbox-icons.nix {};
         liquidctl = prev.callPackage ./liquidctl.nix {};
         mcbedrock = prev.callPackage ./mcbedrock.nix {};
-        nerdfonts = prev.callPackage ./nerdfonts.nix {};
+        nerdfonts = prev.callPackage ./nerdfonts {};
         steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
         polybar = prev.polybar.override { i3GapsSupport = true; };
         wgvpn = mkFish prev "wgvpn";
