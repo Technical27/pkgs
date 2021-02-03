@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     repo = name;
     owner = "jmattheis";
-    rev = "master";
-    sha256 = "1fks2rrrb62ybzn8gqan5swcgksrb579vk37bx4xpwkc552dz2z2";
+    rev = "1eefaa8f543ffc4017fc309798cb80208e4c7c3a";
+    sha256 = "sha256-T4KuLcCamupYH2aQmNpAiI+xblyE7p707JHPp/H+3M4=";
   };
 
   installPhase = ''
