@@ -15,8 +15,8 @@ set jq_expr '
 ] | any
 '
 
-set connected_ipv4 ip -4 -j rule list | jq $jq_expr
-set connected_ipv6 ip -6 -j rule list | jq $jq_expr
+set connected_ipv4 (ip -4 -j rule list | jq $jq_expr)
+set connected_ipv6 (ip -6 -j rule list | jq $jq_expr)
 
 switch $argv[1]
   case up
