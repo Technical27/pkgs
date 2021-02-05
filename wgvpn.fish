@@ -20,17 +20,17 @@ set connected_ipv6 (ip -6 -j rule list | jq $jq_expr)
 
 switch $argv[1]
   case up
-    if test $connected_ipv4 -eq "false"
+    if test $connected_ipv4 = "false"
       sudo ip rule add not from all fwmark 0xc738 lookup 1000
     end
-    if test $connected_ipv6 -eq "false"
+    if test $connected_ipv6 = "false"
       sudo ip -6 rule add not from all fwmark 0xc738 lookup 1000
     end
   case down
-    if test $connected_ipv4 -eq "true"
+    if test $connected_ipv4 = "true"
       sudo ip rule delete not from all fwmark 0xc738 lookup 1000
     end
-    if test $connected_ipv4 -eq "true"
+    if test $connected_ipv4 = "true"
       sudo ip -6 rule delete not from all fwmark 0xc738 lookup 1000
     end
   case status
