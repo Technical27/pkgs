@@ -31,7 +31,7 @@ switch $argv[1]
     if test $connected_ipv4 = "true"
       sudo ip -4 rule delete $wg_rule
     end
-    if test $connected_ipv4 = "true"
+    if test $connected_ipv6 = "true"
       sudo ip -6 rule delete $wg_rule
     end
   case status
