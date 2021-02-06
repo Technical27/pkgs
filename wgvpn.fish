@@ -20,6 +20,7 @@ set connected_ipv6 (ip -6 -j rule list | jq $jq_expr)
 
 switch $argv[1]
   case up
+    sudo resolvectl domain wg0 '~.'
     if test $connected_ipv4 = "false"
       sudo ip -4 rule add not from all fwmark 0xc738 lookup 1000
     end
@@ -27,6 +28,7 @@ switch $argv[1]
       sudo ip -6 rule add not from all fwmark 0xc738 lookup 1000
     end
   case down
+    sudo resolvectl domain wg0 ''
     if test $connected_ipv4 = "true"
       sudo ip -4 rule delete not from all fwmark 0xc738 lookup 1000
     end
