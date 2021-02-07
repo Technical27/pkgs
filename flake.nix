@@ -24,23 +24,21 @@
         glfw-wayland = prev.callPackage ./glfw.nix {};
         gruvbox-gtk = prev.callPackage ./gruvbox-gtk.nix {};
         gruvbox-icons = prev.callPackage ./gruvbox-icons.nix {};
-        liquidctl = prev.callPackage ./liquidctl.nix {};
-        mcbedrock = prev.callPackage ./mcbedrock.nix {};
         info = (import ./info { pkgs = prev; }).package;
         steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
         polybar = prev.polybar.override { i3GapsSupport = true; };
         wgvpn = mkFish prev "wgvpn";
         startsway = mkFish prev "startsway";
-        ibus-launch = mkFish prev "ibus-launch";
-        pipewire = prev.pipewire.overrideAttrs (old: rec {
-          version = "0.3.19";
-          src = prev.fetchFromGitLab {
-            domain = "gitlab.freedesktop.org";
-            owner = "pipewire";
-            repo = "pipewire";
-            rev = "0.3.19";
-            sha256 = "sha256-9zMDdy3Uqr4Ada5uMRuqTpzr5BjSDY5UjTo4g2InezE=";
+        neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (old: {
+          version = "0.5.0-dev";
+          src = let
+            info = builtins.fromJSON (builtins.readFile ./neovim-src.json);
+          in prev.fetchFromGitHub {
+            owner = "neovim";
+            repo = "neovim";
+            inherit (info) rev sha256;
           };
+          buildInputs = old.buildInputs ++ [ final.tree-sitter ];
         });
       };
     };
