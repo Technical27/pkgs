@@ -4,8 +4,6 @@
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
   outputs = { self, nixpkgs }: let
-    supportedSystems = [ "x86_64-linux" "i686-linux" "aarch64-linux" ];
-    forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
     mkFish = prev: name: prev.writeTextFile {
         inherit name;
         destination = "/bin/${name}";
@@ -43,10 +41,10 @@
       };
     };
 
-    packages = forAllSystems (system: (import nixpkgs {
-      inherit system;
+    packages.x86_64-linux = (import nixpkgs {
+      system = "x86_64-linux";
       overlays = [ self.overlay ];
-    }).cpkgs);
+    }).cpkgs;
 
     nixosModule = { ... }: {
       nixpkgs.overlays = [ self.overlay ];
