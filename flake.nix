@@ -38,6 +38,16 @@
           };
           buildInputs = old.buildInputs ++ [ final.tree-sitter ];
         });
+        libusb-patched = prev.libusb1.overrideAttrs (old: {
+          src = let
+            info = builtins.fromJSON (builtins.readFile ./libusb-src.json);
+          in prev.fetchFromGitHub {
+            owner = "libusb";
+            repo = "libusb";
+            inherit (info) rev sha256;
+          };
+        });
+        usbmuxd = prev.usbmuxd.override { libusb1 = final.cpkgs.libusb-patched; };
       };
     };
 
