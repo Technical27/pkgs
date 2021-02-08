@@ -15,4 +15,6 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/icons
     cp -r ${src} $out/share/icons/gruvbox-dark
   '';
+
+  dontFixup = true;
 }

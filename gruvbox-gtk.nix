@@ -15,4 +15,6 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/themes
     cp -r ${src} $out/share/themes/gruvbox-dark
   '';
+
+  dontFixup = true;
 }
