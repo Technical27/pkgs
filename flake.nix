@@ -60,13 +60,5 @@
     nixosModule = { ... }: {
       nixpkgs.overlays = [ self.overlay ];
     };
-
-    nixosModules.auto-cpufreq = { pkgs, ... }: with pkgs; {
-      environment.systemPackages = [ cpkgs.auto-cpufreq ];
-
-      systemd.packages = [ cpkgs.auto-cpufreq ];
-
-      systemd.services.auto-cpufreq.path = with pkgs; [ bash coreutils ];
-    };
   };
 }
