@@ -3,9 +3,6 @@ systemctl --user import-environment
 # then start the service
 systemctl --user start sway.service
 
-# poll for sway
-while test (count (pgrep sway)) -gt 1
-  sleep 5
+while true
+  sleep 864000000000
 end
-
-systemctl --user stop kanshi xdg-desktop-portal-wlr
