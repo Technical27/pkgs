@@ -48,14 +48,7 @@
         });
         usbmuxd = prev.usbmuxd.override { libusb1 = final.cpkgs.libusb-patched; };
         vim = import ./vim { inherit (prev) callPackage; };
-        lunar-client = prev.lunar-client.overrideAttrs (old: rec {
-          version = "2.5.2";
-          src = final.fetchurl {
-            url = "https://launcherupdates.lunarclientcdn.com/Lunar%20Client-${version}.AppImage";
-            name = "lunar-client.AppImage";
-            sha256 = "sha256-BUH7SZ3fzS9IJRm9+yK/0LJto9dwsEpNwi1krHKxsyA=";
-          };
-        });
+        lunar-client = prev.callPackage ./lunar.nix {};
       };
     };
 
