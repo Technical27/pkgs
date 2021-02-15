@@ -18,7 +18,6 @@
         firefox-with-extensions = import ./firefox.nix {
           inherit (prev) wrapFirefox firefox-unwrapped fetchFirefoxAddon;
         };
-        context-vim = prev.callPackage ./context-vim.nix {};
         glfw-wayland = prev.callPackage ./glfw.nix {};
         gruvbox-gtk = prev.callPackage ./gruvbox-gtk.nix {};
         gruvbox-icons = prev.callPackage ./gruvbox-icons.nix {};
@@ -48,6 +47,7 @@
           };
         });
         usbmuxd = prev.usbmuxd.override { libusb1 = final.cpkgs.libusb-patched; };
+        vim = import ./vim { inherit (prev) callPackage; };
       };
     };
 
