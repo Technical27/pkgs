@@ -19,8 +19,10 @@
           inherit (prev) wrapFirefox firefox-unwrapped fetchFirefoxAddon;
         };
         glfw-wayland = prev.callPackage ./glfw.nix {};
-        gruvbox-gtk = prev.callPackage ./gruvbox-gtk.nix {};
-        gruvbox-icons = prev.callPackage ./gruvbox-icons.nix {};
+        gruvbox-dark-theme = prev.callPackage ./gruvbox.nix { darkTheme = true; };
+        gruvbox-dark-icons = prev.callPackage ./gruvbox.nix { darkTheme = true; icons = true; };
+        gruvbox-light-theme = prev.callPackage ./gruvbox.nix {};
+        gruvbox-light-icons = prev.callPackage ./gruvbox.nix { icons = true; };
         info = (import ./info { pkgs = prev; }).package;
         steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
         polybar = prev.polybar.override { i3GapsSupport = true; };
