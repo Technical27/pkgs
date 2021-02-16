@@ -48,6 +48,7 @@
         });
         usbmuxd = prev.usbmuxd.override { libusb1 = final.cpkgs.libusb-patched; };
         vim = import ./vim { inherit (prev) callPackage; };
+        lunar-client = prev.callPackage ./lunar.nix {};
       };
     };
 
