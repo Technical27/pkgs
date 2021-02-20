@@ -38,4 +38,8 @@ in appimageTools.wrapType1 rec {
     maintainers = with maintainers; [ Technical27 ];
     platforms = [ "x86_64-linux" ];
   };
+
+  extraPkgs = pkgs: with pkgs; [
+    libpulseaudio
+  ];
 }
