@@ -31,13 +31,13 @@ let
         sha512 = "6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==";
       };
     };
-    "systeminformation-5.0.9" = {
+    "systeminformation-5.5.0" = {
       name = "systeminformation";
       packageName = "systeminformation";
-      version = "5.0.9";
+      version = "5.5.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/systeminformation/-/systeminformation-5.0.9.tgz";
-        sha512 = "9svh5Yorp2i4aAURYTTtlmObdF2dxziTLMO0CIlGmqPlMJIdz2VElxgR0oVV1pbDJ+9tK8q10ikvnNymytJVlQ==";
+        url = "https://registry.npmjs.org/systeminformation/-/systeminformation-5.5.0.tgz";
+        sha512 = "xFOCgmvbV2aUXpEheFKNKt5y40XeJZvxUkm8qfVWu3RsW9F4eb/CEW3zjY6t4RKl2wAPXywXpKvLmjuQu06+Rg==";
       };
     };
   };
@@ -50,7 +50,7 @@ let
       sources."axios-0.21.1"
       sources."bluebird-3.7.2"
       sources."follow-redirects-1.13.2"
-      sources."systeminformation-5.0.9"
+      sources."systeminformation-5.5.0"
     ];
     buildInputs = globalBuildInputs;
     meta = {
