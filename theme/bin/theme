@@ -100,7 +100,7 @@ def main():
     BPYTOP_THEME.symlink_to(BPYTOP_THEME_DIR / bpytop_theme_file)
 
     with BAT_CONFIG.open('w') as bat_config:
-        bat_theme = f'gruvbox-theme'
+        bat_theme = f'gruvbox-{theme}'
         bat_config.write(f'--theme="{bat_theme}"')
 
     gtk_theme = f'gruvbox-{theme}'
