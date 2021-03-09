@@ -1,0 +1,117 @@
+#!/usr/bin/env python
+
+import socket
+import json
+from glob import glob
+from datetime import datetime
+from argparse import ArgumentParser
+from pathlib import Path
+import subprocess
+
+from pynvim import attach
+
+HOME             = Path.home()
+CONFIG           = HOME.joinpath('.config')
+KITTY_PATH       = CONFIG.joinpath('kitty')
+KITTY_THEME      = KITTY_PATH.joinpath('theme.conf')
+NVIM_THEME       = CONFIG.joinpath('nvim/theme')
+BAT_CONFIG       = CONFIG.joinpath('bat/config')
+BPYTOP_THEME_DIR = CONFIG.joinpath('bpytop/themes')
+BPYTOP_THEME     = BPYTOP_THEME_DIR.joinpath('gruvbox.theme')
+WAYBAR_PATH      = CONFIG.joinpath('waybar')
+WAYBAR_THEME     = WAYBAR_PATH.joinpath('theme.css')
+
+def kitty_theme(path, theme):
+    sock = socket.socket(socket.AF_UNIX)
+    sock.connect(path)
+
+    theme_file = f'gruvbox-{theme}.conf'
+    msg = '\x1bP@kitty-cmd' + json.dumps({
+        "cmd": "set-colors",
+        "no_response": True,
+        "version": [0, 19, 1],
+        "payload": {
+            "colors": parse_kitty_theme(KITTY_PATH / theme_file),
+            "all": True,
+            "configured": True
+        }
+    }, separators=(',', ':')) + '\x1b\\'
+    sock.sendmsg([bytes(msg, "utf-8")])
+    sock.close()
+
+def nvim_theme(path, theme):
+    nvim = attach('socket', path=path)
+    nvim.options['background'] = theme
+
+def parse_kitty_theme(path):
+    obj = {}
+    with open(path, 'r') as file:
+        for line in file.readlines():
+            s = line.strip().split(' ')
+            if s is not None and len(s[0]) > 0:
+                obj[s[0]] = int(s[1][1:], base=16)
+    return obj
+
+def main():
+    parser = ArgumentParser(description='change kitty/nvim theme')
+    parser.add_argument('--theme', choices=['light', 'dark'], required=False)
+    args = parser.parse_args()
+
+    if args.theme is not None:
+        theme = args.theme
+    else:
+        if datetime.now().hour >= 18:
+            theme = 'dark'
+        else:
+            theme = 'light'
+
+    for nvim_path in glob('/tmp/nvim*'):
+        nvim_sock = Path(nvim_path) / '0'
+        if nvim_sock.is_socket():
+            try:
+                nvim_theme(nvim_sock, theme)
+            except Exception as e:
+                pass
+        else:
+            print(f'{nvim_sock} isn\'t a UNIX socket!')
+
+    for kitty_path in glob('/tmp/kitty-*'):
+        if Path(kitty_path).is_socket():
+            try:
+                kitty_theme(kitty_path, theme)
+            except Exception as e:
+                pass
+        else:
+            print(f'{kitty_path} isn\'t a UNIX socket!')
+
+    with NVIM_THEME.open('w') as file:
+        file.write(theme)
+
+    if KITTY_THEME.exists():
+        KITTY_THEME.unlink()
+
+    kitty_theme_file = f'gruvbox-{theme}.conf'
+    KITTY_THEME.symlink_to(KITTY_PATH / kitty_theme_file)
+
+    if BPYTOP_THEME.exists():
+        BPYTOP_THEME.unlink()
+
+    bpytop_theme_file = f'gruvbox_{theme}.theme'
+    BPYTOP_THEME.symlink_to(BPYTOP_THEME_DIR / bpytop_theme_file)
+
+    with BAT_CONFIG.open('w') as bat_config:
+        bat_theme = f'gruvbox-theme'
+        bat_config.write(f'--theme="{bat_theme}"')
+
+    gtk_theme = f'gruvbox-{theme}'
+    subprocess.run(['gsettings', 'set', 'org.gnome.desktop.interface', 'gtk-theme', gtk_theme], check=True)
+    subprocess.run(['gsettings', 'set', 'org.gnome.desktop.interface', 'icon-theme', gtk_theme], check=True)
+
+    if WAYBAR_THEME.exists():
+        WAYBAR_THEME.unlink()
+
+    waybar_theme_file = f'gruvbox-{theme}.css'
+    WAYBAR_THEME.symlink_to(WAYBAR_PATH / waybar_theme_file)
+
+if __name__ == '__main__':
+    main()
