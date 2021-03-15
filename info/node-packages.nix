@@ -22,22 +22,22 @@ let
         sha512 = "XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==";
       };
     };
-    "follow-redirects-1.13.2" = {
+    "follow-redirects-1.13.3" = {
       name = "follow-redirects";
       packageName = "follow-redirects";
-      version = "1.13.2";
+      version = "1.13.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.2.tgz";
-        sha512 = "6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==";
+        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.3.tgz";
+        sha512 = "DUgl6+HDzB0iEptNQEXLx/KhTmDb8tZUHSeLqpnjpknR70H0nC2t9N73BK6fN4hOvJ84pKlIQVQ4k5FFlBedKA==";
       };
     };
-    "systeminformation-5.5.0" = {
+    "systeminformation-5.6.4" = {
       name = "systeminformation";
       packageName = "systeminformation";
-      version = "5.5.0";
+      version = "5.6.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/systeminformation/-/systeminformation-5.5.0.tgz";
-        sha512 = "xFOCgmvbV2aUXpEheFKNKt5y40XeJZvxUkm8qfVWu3RsW9F4eb/CEW3zjY6t4RKl2wAPXywXpKvLmjuQu06+Rg==";
+        url = "https://registry.npmjs.org/systeminformation/-/systeminformation-5.6.4.tgz";
+        sha512 = "b2tvW1R+qjNEoAGgh734EGLgqbDMghjsHRaWo36skAC6JM1tw1pitcGz/REt+qSIRSXbE4PKECojhaSrBRrEmw==";
       };
     };
   };
@@ -49,8 +49,8 @@ let
     dependencies = [
       sources."axios-0.21.1"
       sources."bluebird-3.7.2"
-      sources."follow-redirects-1.13.2"
-      sources."systeminformation-5.5.0"
+      sources."follow-redirects-1.13.3"
+      sources."systeminformation-5.6.4"
     ];
     buildInputs = globalBuildInputs;
     meta = {
