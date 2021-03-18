@@ -27,17 +27,6 @@
         polybar = prev.polybar.override { i3GapsSupport = true; };
         wgvpn = mkFish prev "wgvpn";
         startsway = mkFish prev "startsway";
-        neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (old: {
-          version = "0.5.0-dev";
-          src = let
-            info = builtins.fromJSON (builtins.readFile ./neovim-src.json);
-          in prev.fetchFromGitHub {
-            owner = "neovim";
-            repo = "neovim";
-            inherit (info) rev sha256;
-          };
-          buildInputs = old.buildInputs ++ [ final.tree-sitter ];
-        });
         vim = import ./vim { inherit (prev) callPackage; };
         lunar-client = prev.callPackage ./lunar.nix {};
         theme = prev.callPackage ./theme {};
