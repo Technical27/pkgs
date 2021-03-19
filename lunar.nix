@@ -1,7 +1,7 @@
 { appimageTools, lib, fetchurl, makeDesktopItem }:
 let
   name = "lunar-client";
-  version = "2.5.2";
+  version = "2.5.3";
 
   desktopItem = makeDesktopItem {
     name = "Lunar Client";
@@ -20,7 +20,7 @@ let
   src = fetchurl {
     url = "https://launcherupdates.lunarclientcdn.com/Lunar%20Client-${version}.AppImage";
     name = "lunar-client.AppImage";
-    sha256 = "sha256-BUH7SZ3fzS9IJRm9+yK/0LJto9dwsEpNwi1krHKxsyA=";
+    sha256 = "sha256-iXakYN2jEHwho0zXxXHI5S1oW+rfOz4I69YV/CRMU88=";
   };
 in appimageTools.wrapType1 rec {
   inherit name src;
@@ -34,7 +34,7 @@ in appimageTools.wrapType1 rec {
   meta = with lib; {
     description = "Minecraft 1.7.10 & 1.8.9 PVP Client";
     homepage = "https://www.lunarclient.com/";
-    license = with licenses; [ unfree ];
+    license = [ licenses.unfree ];
     maintainers = with maintainers; [ Technical27 ];
     platforms = [ "x86_64-linux" ];
   };
