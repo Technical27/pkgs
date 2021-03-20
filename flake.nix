@@ -26,7 +26,6 @@
         info = (import ./info { pkgs = prev; }).package;
         steam = (import nixpkgs-steam {
           system = "x86_64-linux";
-          overlays = [ self.overlay ];
           config.allowUnfree = true;
         }).steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
         polybar = prev.polybar.override { i3GapsSupport = true; };
