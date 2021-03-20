@@ -2,8 +2,9 @@
   description = "Custom Packages";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  inputs.nixpkgs-steam.url = "github:nixos/nixpkgs/826c65988b0602885312d62b74b297019e27e352";
 
-  outputs = { self, nixpkgs }: let
+  outputs = { self, nixpkgs, nixpkgs-steam }: let
     mkFish = prev: name: prev.writeTextFile {
         inherit name;
         destination = "/bin/${name}";
@@ -23,7 +24,11 @@
         gruvbox-light-theme = prev.callPackage ./gruvbox.nix {};
         gruvbox-light-icons = prev.callPackage ./gruvbox.nix { icons = true; };
         info = (import ./info { pkgs = prev; }).package;
-        steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
+        steam = (import nixpkgs-steam {
+          system = "x86_64-linux";
+          overlays = [ self.overlay ];
+          config.allowUnfree = true;
+        }).steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
         polybar = prev.polybar.override { i3GapsSupport = true; };
         wgvpn = mkFish prev "wgvpn";
         startsway = mkFish prev "startsway";

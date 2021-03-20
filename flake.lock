@@ -16,9 +16,26 @@
         "type": "github"
       }
     },
+    "nixpkgs-steam": {
+      "locked": {
+        "lastModified": 1616238916,
+        "narHash": "sha256-xTyENDNpjbt9k9rZA/RRvp+8jTNhQ41NLtew9c2EZJA=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "826c65988b0602885312d62b74b297019e27e352",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "826c65988b0602885312d62b74b297019e27e352",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-steam": "nixpkgs-steam"
       }
     }
   },
