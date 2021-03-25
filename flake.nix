@@ -23,7 +23,7 @@
         gruvbox-light-theme = prev.callPackage ./gruvbox.nix {};
         gruvbox-light-icons = prev.callPackage ./gruvbox.nix { icons = true; };
         info = (import ./info { pkgs = prev; }).package;
-        steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
+        # steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
         polybar = prev.polybar.override { i3GapsSupport = true; };
         wgvpn = mkFish prev "wgvpn";
         startsway = mkFish prev "startsway";
