@@ -6,8 +6,9 @@ python3Packages.buildPythonPackage {
 
   src = ./.;
 
-  propagatedBuildInputs = [
-    python3Packages.pynvim
+  propagatedBuildInputs = with python3Packages; [
+    pynvim
+    psutil
   ];
 
   doCheck = false;

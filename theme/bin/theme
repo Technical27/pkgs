@@ -7,8 +7,11 @@ from datetime import datetime
 from argparse import ArgumentParser
 from pathlib import Path
 import subprocess
+import os
+import signal
 
 from pynvim import attach
+import psutil
 
 HOME             = Path.home()
 CONFIG           = HOME.joinpath('.config')
@@ -20,6 +23,8 @@ BPYTOP_THEME_DIR = CONFIG.joinpath('bpytop/themes')
 BPYTOP_THEME     = BPYTOP_THEME_DIR.joinpath('gruvbox.theme')
 WAYBAR_PATH      = CONFIG.joinpath('waybar')
 WAYBAR_THEME     = WAYBAR_PATH.joinpath('theme.css')
+WALLPAPER_PATH   = HOME.joinpath('Pictures')
+WALLPAPER_THEME  = WALLPAPER_PATH.joinpath('wallpaper.png')
 
 def kitty_theme(path, theme):
     sock = socket.socket(socket.AF_UNIX)
@@ -27,16 +32,16 @@ def kitty_theme(path, theme):
 
     theme_file = f'gruvbox-{theme}.conf'
     msg = '\x1bP@kitty-cmd' + json.dumps({
-        "cmd": "set-colors",
-        "no_response": True,
-        "version": [0, 19, 1],
-        "payload": {
-            "colors": parse_kitty_theme(KITTY_PATH / theme_file),
-            "all": True,
-            "configured": True
+        'cmd': 'set-colors',
+        'no_response': True,
+        'version': [0, 19, 1],
+        'payload': {
+            'colors': parse_kitty_theme(KITTY_PATH / theme_file),
+            'all': True,
+            'configured': True
         }
     }, separators=(',', ':')) + '\x1b\\'
-    sock.sendmsg([bytes(msg, "utf-8")])
+    sock.sendmsg([bytes(msg, 'utf-8')])
     sock.close()
 
 def nvim_theme(path, theme):
@@ -47,6 +52,9 @@ def parse_kitty_theme(path):
     obj = {}
     with open(path, 'r') as file:
         for line in file.readlines():
+            if line.startswith('#'):
+                continue
+
             s = line.strip().split(' ')
             if s is not None and len(s[0]) > 0:
                 obj[s[0]] = int(s[1][1:], base=16)
@@ -112,6 +120,22 @@ def main():
 
     waybar_theme_file = f'gruvbox-{theme}.css'
     WAYBAR_THEME.symlink_to(WAYBAR_PATH / waybar_theme_file)
+
+    for proc in psutil.process_iter():
+        try:
+            cmdline = proc.cmdline()
+            if len(cmdline) > 0 and cmdline[0].endswith('waybar'):
+                os.kill(proc.pid, signal.SIGUSR2)
+        except psutil.NoSuchProcess as e:
+            pass
+
+    if WALLPAPER_THEME.exists():
+        WALLPAPER_THEME.unlink()
+
+    wallpaper_theme_file = f'wallpaper-{theme}.png'
+    WALLPAPER_THEME.symlink_to(WALLPAPER_PATH / wallpaper_theme_file)
+
+    subprocess.run(['swaymsg', 'output', '*', 'bg', WALLPAPER_THEME, 'fill'], check=True)
 
 if __name__ == '__main__':
     main()
