@@ -30,6 +30,9 @@
         vim = import ./vim { inherit (prev) callPackage; };
         lunar-client = prev.callPackage ./lunar.nix {};
         theme = prev.callPackage ./theme {};
+        waybar = prev.waybar.overrideAttrs (old: {
+          patches = [ ./waybar-kernel-fix.patch ./waybar-reload.patch ];
+        });
       };
     };
 
