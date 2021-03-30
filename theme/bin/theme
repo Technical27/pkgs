@@ -135,7 +135,22 @@ def main():
     wallpaper_theme_file = f'wallpaper-{theme}.png'
     WALLPAPER_THEME.symlink_to(WALLPAPER_PATH / wallpaper_theme_file)
 
-    subprocess.run(['swaymsg', 'output', '*', 'bg', WALLPAPER_THEME, 'fill'], check=True)
+    uid = str(os.getuid())
+
+    for proc in psutil.process_iter():
+        try:
+            cmdline = proc.cmdline()
+            if len(cmdline) > 0 and cmdline[0].endswith('sway'):
+                pid = proc.pid
+                swaysock = Path('/run/user').joinpath(uid).joinpath(f'sway-ipc.{uid}.{pid}.sock')
+                env = {
+                    **os.environ,
+                    'SWAYSOCK': swaysock
+                }
+                subprocess.run(['swaymsg', 'output', '*', 'bg', str(WALLPAPER_THEME), 'fill'], check=True, env=env)
+        except psutil.NoSuchProcess as e:
+            pass
+
 
 if __name__ == '__main__':
     main()
