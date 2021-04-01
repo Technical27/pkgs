@@ -33,6 +33,12 @@
         waybar = prev.waybar.overrideAttrs (old: {
           patches = [ ./waybar-kernel-fix.patch ./waybar-reload.patch ];
         });
+        mangohud = prev.callPackage ./mangohud.nix {
+          inherit (final.linuxPackages_latest) nvidia_x11;
+        };
+        mangohud_32 = prev.pkgsi686Linux.callPackage ./mangohud.nix {
+          inherit (final.linuxPackages_latest) nvidia_x11;
+        };
       };
     };
 
