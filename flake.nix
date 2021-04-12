@@ -39,6 +39,7 @@
         mangohud_32 = prev.pkgsi686Linux.callPackage ./mangohud.nix {
           inherit (final.linuxPackages_latest) nvidia_x11;
         };
+        fcitx5-m17n = prev.callPackage ./m17n.nix {};
       };
     };
 
