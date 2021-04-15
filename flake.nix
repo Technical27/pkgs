@@ -27,7 +27,7 @@
         polybar = prev.polybar.override { i3GapsSupport = true; };
         wgvpn = mkFish prev "wgvpn";
         startsway = mkFish prev "startsway";
-        vim = import ./vim { inherit (prev) callPackage; };
+        context-vim = prev.callPackage ./context-vim.nix {};
         lunar-client = prev.callPackage ./lunar.nix {};
         theme = prev.callPackage ./theme {};
         waybar = prev.waybar.overrideAttrs (old: {
