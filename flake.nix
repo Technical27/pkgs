@@ -30,8 +30,15 @@
         context-vim = prev.callPackage ./context-vim.nix {};
         lunar-client = prev.callPackage ./lunar.nix {};
         theme = prev.callPackage ./theme {};
-        waybar = prev.waybar.overrideAttrs (old: {
-          patches = [ ./waybar-kernel-fix.patch ./waybar-reload.patch ];
+        waybar = prev.waybar.overrideAttrs (old: rec {
+          version = "0.9.7";
+          src = final.fetchFromGitHub {
+            owner = "Alexays";
+            repo = "Waybar";
+            rev = version;
+            sha256 = "17cn4d3dx92v40jd9vl41smp8hh3gf5chd1j2f7l1lrpfpnllg5x";
+          };
+          patches = [];
         });
         mangohud = prev.callPackage ./mangohud.nix {
           inherit (final.linuxPackages_latest) nvidia_x11;
