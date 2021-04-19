@@ -28,7 +28,6 @@
         wgvpn = mkFish prev "wgvpn";
         startsway = mkFish prev "startsway";
         context-vim = prev.callPackage ./context-vim.nix {};
-        lunar-client = prev.callPackage ./lunar.nix {};
         theme = prev.callPackage ./theme {};
         waybar = prev.waybar.overrideAttrs (old: rec {
           version = "0.9.7";
