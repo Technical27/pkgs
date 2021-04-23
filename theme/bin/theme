@@ -25,6 +25,8 @@ WAYBAR_PATH      = CONFIG.joinpath('waybar')
 WAYBAR_THEME     = WAYBAR_PATH.joinpath('theme.css')
 WALLPAPER_PATH   = HOME.joinpath('Pictures')
 WALLPAPER_THEME  = WALLPAPER_PATH.joinpath('wallpaper.png')
+ZATHURA_PATH     = CONFIG.joinpath('zathura')
+ZATHURA_THEME    = ZATHURA_PATH.joinpath('style.conf')
 
 def kitty_theme(path, theme):
     sock = socket.socket(socket.AF_UNIX)
@@ -134,6 +136,12 @@ def main():
 
     wallpaper_theme_file = f'wallpaper-{theme}.png'
     WALLPAPER_THEME.symlink_to(WALLPAPER_PATH / wallpaper_theme_file)
+
+    if ZATHURA_THEME.exists():
+        ZATHURA_THEME.unlink()
+
+    zathura_theme_file = f'gruvbox-{theme}.conf'
+    ZATHURA_THEME.symlink_to(ZATHURA_PATH / zathura_theme_file)
 
     uid = str(os.getuid())
 
