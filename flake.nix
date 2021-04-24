@@ -45,16 +45,7 @@
         mangohud_32 = prev.pkgsi686Linux.callPackage ./mangohud.nix {
           inherit (final.linuxPackages_latest) nvidia_x11;
         };
-        mako = prev.mako.overrideAttrs (old: {
-          patches = [ ./mako.patch ];
-          src = prev.fetchFromGitHub {
-            owner = "emersion";
-            repo = "mako";
-            rev = "e5b5d56aaaf8390c97a17c208f950803538e7294";
-            sha256 = "sha256-CNTdPTJnve7c8fQbRrxS5BBHCjyZY0ZBQsyUslsUhcY=";
-          };
-          mesonFlags = old.mesonFlags ++ [ "-Dsd-bus-provider=libsystemd" ];
-        });
+        mako = prev.mako.overrideAttrs (old: { patches = [ ./mako.patch ]; });
       };
     };
 

@@ -1,21 +1,21 @@
 diff --git a/config.c b/config.c
-index c1d6c08..10494f8 100644
+index e967949..a73e2f7 100644
 --- a/config.c
 +++ b/config.c
-@@ -58,6 +58,9 @@ void init_default_config(struct mako_config *config) {
- 	config->button_bindings.right = MAKO_BINDING_DISMISS;
- 	config->button_bindings.middle = MAKO_BINDING_NONE;
- 	config->touch = MAKO_BINDING_DISMISS;
+@@ -65,6 +65,9 @@ void init_default_config(struct mako_config *config) {
+ 
+ 	config->anchor =
+ 		ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP | ZWLR_LAYER_SURFACE_V1_ANCHOR_RIGHT;
 +
-+	config->paths = malloc(16 * sizeof(char*));
++	config->paths = calloc(16, sizeof(char*));
 +	memset(config->paths, 0, 16 * sizeof(char*));
  }
  
  void finish_config(struct mako_config *config) {
-@@ -68,6 +71,11 @@ void finish_config(struct mako_config *config) {
- 
+@@ -76,6 +79,11 @@ void finish_config(struct mako_config *config) {
  	finish_style(&config->superstyle);
  	finish_style(&config->hidden_style);
+ 	free(config->output);
 +
 +	for (int i = 0; i < 16; i++) {
 +		if (config->paths[i] != NULL) free(config->paths[i]);
@@ -24,20 +24,35 @@ index c1d6c08..10494f8 100644
  }
  
  void init_default_style(struct mako_style *style) {
-@@ -473,6 +481,12 @@ static bool apply_config_option(struct mako_config *config, const char *name,
+@@ -428,6 +436,27 @@ static bool apply_config_option(struct mako_config *config, const char *name,
+ 			return false;
+ 		}
  		return true;
- 	} else if (strcmp(name, "max-history") == 0) {
- 		return parse_int(value, &config->max_history);
 +	} else if (strcmp(name, "include") == 0) {
-+		char *path = calloc(strlen(value), sizeof(char));
-+		strcpy(path, value);
-+		if (load_config_file(config, path) == 0) {
-+			return true;
++		char *config_path = NULL;
++		if (value[0] == '/') {
++			config_path = strdup(value);
++		} else {
++			char *config_dirname = NULL;
++			for (int i = 0; i < 16; i++) {
++				if (config->paths[i] != NULL) {
++					config_dirname = dirname(config->paths[i]);
++					break;
++				}
++			}
++			if (config_dirname == NULL) {
++				return false;
++			}
++			config_path = calloc(strlen(config_dirname) + strlen(value) + 1, sizeof(char));
++			strcpy(config_path, config_dirname);
++			strcat(config_path, "/");
++			strcat(config_path, value);
 +		}
++		return load_config_file(config, config_path) == 0;
  	}
  
  	return false;
-@@ -687,6 +701,23 @@ int load_config_file(struct mako_config *config, char *config_arg) {
+@@ -563,6 +592,23 @@ int load_config_file(struct mako_config *config, char *config_arg) {
  	}
  	const char *base = basename(path);
  
@@ -61,7 +76,7 @@ index c1d6c08..10494f8 100644
  	int ret = 0;
  	int lineno = 0;
  	char *line = NULL;
-@@ -765,7 +796,10 @@ int load_config_file(struct mako_config *config, char *config_arg) {
+@@ -640,7 +686,10 @@ int load_config_file(struct mako_config *config, char *config_arg) {
  	free(section);
  	free(line);
  	fclose(f);
@@ -73,24 +88,24 @@ index c1d6c08..10494f8 100644
  	return ret;
  }
  
-@@ -805,6 +839,7 @@ int parse_config_arguments(struct mako_config *config, int argc, char **argv) {
- 		{"on-button-right", required_argument, 0, 0},
- 		{"on-button-middle", required_argument, 0, 0},
- 		{"on-touch", required_argument, 0, 0},
+@@ -673,6 +722,7 @@ int parse_config_arguments(struct mako_config *config, int argc, char **argv) {
+ 		{"anchor", required_argument, 0, 0},
+ 		{"sort", required_argument, 0, 0},
+ 		{"group-by", required_argument, 0, 0},
 +		{"include", required_argument, 0, 0},
  		{0},
  	};
  
 diff --git a/include/config.h b/include/config.h
-index f6b88ee..9e23f05 100644
+index a3abc9c..aa42bdd 100644
 --- a/include/config.h
 +++ b/include/config.h
-@@ -99,6 +99,8 @@ struct mako_config {
+@@ -85,6 +85,8 @@ struct mako_config {
  	} button_bindings;
  
  	enum mako_binding touch;
 +
-+	char **paths; // paths of all loaded configs
++	char **paths; // array of all loaded configs
  };
  
  void init_default_config(struct mako_config *config);
