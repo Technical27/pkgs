@@ -46,6 +46,7 @@
           inherit (final.linuxPackages_latest) nvidia_x11;
         };
         mako = prev.mako.overrideAttrs (old: { patches = [ ./mako.patch ]; });
+        guilded = prev.callPackage ./guilded.nix {};
       };
     };
 
