@@ -28,6 +28,8 @@ WALLPAPER_THEME  = WALLPAPER_PATH.joinpath('wallpaper.png')
 ZATHURA_PATH     = CONFIG.joinpath('zathura')
 ZATHURA_THEME    = ZATHURA_PATH.joinpath('style.conf')
 
+IS_LAPTOP = socket.gethostname() == "laptop";
+
 def kitty_theme(path, theme):
     sock = socket.socket(socket.AF_UNIX)
     sock.connect(path)
@@ -113,6 +115,15 @@ def main():
         bat_theme = f'gruvbox-{theme}'
         bat_config.write(f'--theme="{bat_theme}"')
 
+    if ZATHURA_THEME.exists():
+        ZATHURA_THEME.unlink()
+
+    zathura_theme_file = f'gruvbox-{theme}.conf'
+    ZATHURA_THEME.symlink_to(ZATHURA_PATH / zathura_theme_file)
+
+    if IS_DESKTOP:
+        return
+
     gtk_theme = f'gruvbox-{theme}'
     subprocess.run(['gsettings', 'set', 'org.gnome.desktop.interface', 'gtk-theme', gtk_theme], check=True)
     subprocess.run(['gsettings', 'set', 'org.gnome.desktop.interface', 'icon-theme', gtk_theme], check=True)
@@ -136,12 +147,6 @@ def main():
 
     wallpaper_theme_file = f'wallpaper-{theme}.png'
     WALLPAPER_THEME.symlink_to(WALLPAPER_PATH / wallpaper_theme_file)
-
-    if ZATHURA_THEME.exists():
-        ZATHURA_THEME.unlink()
-
-    zathura_theme_file = f'gruvbox-{theme}.conf'
-    ZATHURA_THEME.symlink_to(ZATHURA_PATH / zathura_theme_file)
 
     uid = str(os.getuid())
 
