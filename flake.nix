@@ -48,6 +48,7 @@
         mako = prev.mako.overrideAttrs (old: { patches = [ ./mako.patch ]; });
         guilded = prev.callPackage ./guilded.nix {};
         lunar-client = prev.callPackage ./lunar.nix {};
+        badlion-client = prev.callPackage ./badlion.nix {};
       };
     };
 
