@@ -1,0 +1,12 @@
+diff --git a/pros/common/utils.py b/pros/common/utils.py
+index f825267..5f133ae 100644
+--- a/pros/common/utils.py
++++ b/pros/common/utils.py
+@@ -12,6 +12,7 @@ import pros
+ 
+ @lru_cache(1)
+ def get_version():
++    return "3.2.1"
+     try:
+         ver = open(os.path.join(os.path.dirname(__file__), '..', '..', 'version')).read().strip()
+         if ver is not None:

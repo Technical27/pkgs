@@ -1,0 +1,21 @@
+diff --git a/requirements.txt b/requirements.txt
+index 4f76fc7..0cf82d9 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1 +1 @@
+-typing
+\ No newline at end of file
++typing; python_version <= '3.5'
+diff --git a/setup.py b/setup.py
+index e23529c..a6b3e46 100644
+--- a/setup.py
++++ b/setup.py
+@@ -14,7 +14,7 @@ setup(
+     description='static code analyzer wrapper for Clang.',
+     long_description=open('README.rst').read(),
+     zip_safe=False,
+-    install_requires=['typing'],
++    install_requires=['typing; python_version < "3.5"'],
+     packages=['libscanbuild', 'libear'],
+     package_data={'libscanbuild': ['resources/*'],
+                   'libear': ['config.h.in', 'ear.c']},

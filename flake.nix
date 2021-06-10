@@ -49,6 +49,7 @@
         guilded = prev.callPackage ./guilded.nix {};
         lunar-client = prev.callPackage ./lunar.nix {};
         badlion-client = prev.callPackage ./badlion.nix {};
+        pros = import ./pros { pkgs = final; };
       };
     };
 
