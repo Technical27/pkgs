@@ -36,13 +36,13 @@ let
   };
 in python3Packages.buildPythonPackage rec {
   pname = "grapejuice";
-  version = "3.4.1";
+  version = "3.9.2";
 
   src = fetchFromGitLab {
     owner = "BrinkerVII";
     repo = pname;
-    rev = "master";
-    sha256 = "sha256-naAvSIvLv9d/Ql+V+9A+PFX6mV3KHGqxO0gF5uxQS88=";
+    rev = "ccf269205ca958b57701814a64b2ac1b3d41dd94";
+    sha256 = "sha256-G9PfQyoqgiU7tbpG1MxfUp64F/5a2Td7DY7t4QKmUNk=";
   };
 
   postInstall = ''
