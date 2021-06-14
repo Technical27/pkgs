@@ -1,6 +1,14 @@
-{ stdenv, bash, wine, unzip, fetchurl }:
+{ stdenv, bash, wine, unzip, fetchurl, makeDesktopItem }:
 
-stdenv.mkDerivation rec {
+let
+  desktopItem = makeDesktopItem {
+    name = "rbxfpsunlocker";
+    desktopName = "rbxfpsunlocker";
+    exec = "rbxfpsunlocker";
+    comment = "Roblox FPS Unlocker";
+    categories = "Game;";
+  };
+in stdenv.mkDerivation rec {
   pname = "rbxfpsunlocker";
   version = "0.0.0";
   preferLocalBuild = true;
