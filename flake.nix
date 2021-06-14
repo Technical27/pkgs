@@ -50,6 +50,13 @@
         lunar-client = prev.callPackage ./lunar.nix {};
         badlion-client = prev.callPackage ./badlion.nix {};
         pros = import ./pros { pkgs = final; };
+        grapejuice = prev.callPackage ./grapejuice.nix {
+          pygobject-stubs = prev.python3Packages.callPackage ./pygobject-stubs.nix {};
+          wine = final.cpkgs.wine-staging;
+        };
+        wine-staging = prev.lib.overrideDerivation prev.wineWowPackages.staging (old: {
+          patches = old.patches ++ [ ./wine-roblox.patch ];
+        });
       };
     };
 
