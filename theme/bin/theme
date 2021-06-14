@@ -29,6 +29,7 @@ ZATHURA_PATH     = CONFIG.joinpath('zathura')
 ZATHURA_THEME    = ZATHURA_PATH.joinpath('style.conf')
 
 IS_LAPTOP = socket.gethostname() == "laptop";
+IS_DESKTOP = socket.gethostname() == "desktop";
 
 def kitty_theme(path, theme):
     sock = socket.socket(socket.AF_UNIX)
