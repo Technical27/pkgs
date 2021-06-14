@@ -37,7 +37,9 @@ in stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    install -Dm444 rbxfpsunlocker.exe $out/share/rbxfpsunlocker/rbxfpsunlocker.exe
+    install -Dm444 -t $out/share/rbxfpsunlocker rbxfpsunlocker.exe
+    install -Dm444 -t $out/share/applications ${desktopItem}/share/applications/*
+
     install -Dm555 -t $out/bin rbxfpsunlocker
   '';
 }
