@@ -5,7 +5,7 @@ let
   grapejuiceItem = makeDesktopItem {
     desktopName = "Grapejuice";
     name = "grapejuice";
-    exec = "grapejuice";
+    exec = "grapejuice gui";
     icon = "grapejuice";
     comment = "manage roblox";
     categories = "Development;";
