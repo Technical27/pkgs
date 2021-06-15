@@ -21,7 +21,7 @@ let
   src = requireFile rec {
     name = "BadlionClient";
     url = "https://client.badlion.net/";
-    sha256 = "1y6l46709s7pi4jl4503bzwjnyn1jgbyqh8ajk8m4rc6h7jkif6c";
+    sha256 = "sha256-uhluveIjyLr7oJe5tAREpxdRjtMkky9fUAgU5ZP/qtw=";
     message = ''
       This Nix expression requires Badlion Client to be downloaded manually.
       In order to build it, you need to:
