@@ -41,8 +41,8 @@ in python3Packages.buildPythonPackage rec {
   src = fetchFromGitLab {
     owner = "BrinkerVII";
     repo = pname;
-    rev = "ccf269205ca958b57701814a64b2ac1b3d41dd94";
-    sha256 = "sha256-G9PfQyoqgiU7tbpG1MxfUp64F/5a2Td7DY7t4QKmUNk=";
+    rev = "14845f0f1c6cef122a9f7b2bd5165dcf9de0529f";
+    sha256 = "sha256-X8XaFN2CmO71Rvh1iFTZ1RxS8H8kNO4ezy/a7Jlu/dA=";
   };
 
   postInstall = ''
