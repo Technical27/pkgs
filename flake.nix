@@ -22,11 +22,12 @@
           info = (import ./outputs/tools/info { pkgs = prev; }).package;
           mako = prev.mako.overrideAttrs (old: { patches = [ ./outputs/tools/mako.patch ]; });
           theme = prev.callPackage ./outputs/tools/theme {};
-          context-vim = prev.callPackage ./context-vim.nix {};
           wgvpn = prev.callPackage ./outputs/tools/wgvpn {};
           polybar = prev.polybar.override { i3GapsSupport = true; };
           glfw-wayland = prev.callPackage ./outputs/tools/glfw.nix {};
         };
+
+        vim = import ./outputs/vim { inherit (prev) fetchFromGitHub vimUtils; };
 
         games = {
           # TODO: maybe add this again for shapez.io
