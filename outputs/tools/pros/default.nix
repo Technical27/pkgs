@@ -1,6 +1,6 @@
 { pkgs }:
 
-rec {
+let
   scan-build = pkgs.python3Packages.callPackage ./scan-build.nix {};
   cobs = pkgs.python3Packages.callPackage ./cobs.nix {};
   rfc6266-parser = pkgs.python3Packages.callPackage ./rfc6266.nix { inherit lepl; };
@@ -8,5 +8,4 @@ rec {
   pypng = pkgs.python3Packages.callPackage ./pypng.nix {};
   lepl = pkgs.python3Packages.callPackage ./lepl.nix {};
   click = pkgs.python3Packages.callPackage ./click.nix {};
-  cli = pkgs.callPackage ./pros-cli.nix { inherit cobs scan-build rfc6266-parser observable pypng click; };
-}
+in pkgs.callPackage ./cli.nix { inherit cobs scan-build rfc6266-parser observable pypng click; }
