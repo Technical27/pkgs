@@ -11,10 +11,10 @@
         };
 
         gruvbox = {
-          dark-theme = prev.callPackage ./gruvbox.nix { darkTheme = true; };
-          dark-icons = prev.callPackage ./gruvbox.nix { darkTheme = true; icons = true; };
-          light-theme = prev.callPackage ./gruvbox.nix {};
-          light-icons = prev.callPackage ./gruvbox.nix { icons = true; };
+          dark-theme = prev.callPackage ./outputs/gruvbox.nix { darkTheme = true; };
+          dark-icons = prev.callPackage ./outputs/gruvbox.nix { darkTheme = true; icons = true; };
+          light-theme = prev.callPackage ./outputs/gruvbox.nix {};
+          light-icons = prev.callPackage ./outputs/gruvbox.nix { icons = true; };
         };
 
         tools = {
