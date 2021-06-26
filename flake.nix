@@ -39,11 +39,13 @@
       };
     };
 
-    packages.x86_64-linux = (import nixpkgs {
-      system = "x86_64-linux";
-      overlays = [ self.overlay ];
-      config.allowUnfree = true;
-    }).cpkgs;
+    packages.x86_64-linux = (
+      import nixpkgs {
+        system = "x86_64-linux";
+        overlays = [ self.overlay ];
+        config.allowUnfree = true;
+      }
+    ).cpkgs;
 
     nixosModule = { ... }: {
       nixpkgs.overlays = [ self.overlay ];
