@@ -1,14 +1,13 @@
-{ darkTheme ? false,
-  icons ? false,
-  stdenv,
-  fetchFromGitHub
+{ icons ? false
+, stdenv
+, fetchFromGitHub
 }:
 
 let
-  varient = if darkTheme then "dark" else "light";
   type = if icons then "icons" else "theme";
-in stdenv.mkDerivation rec {
-  pname = "gruvbox-${varient}-${type}";
+in
+stdenv.mkDerivation rec {
+  pname = "gruvbox-dark-${type}";
   version = "0.0.0";
 
   src = fetchFromGitHub {
@@ -20,10 +19,11 @@ in stdenv.mkDerivation rec {
 
   installPhase = let
     dir = if icons then "icons" else "themes";
-  in ''
-    mkdir -p $out/share/${dir}
-    cp -r ${src}/${varient}/${type} $out/share/${dir}/gruvbox-${varient}
-  '';
+  in
+    ''
+      mkdir -p $out/share/${dir}
+      cp -r ${src}/dark/${type} $out/share/${dir}/gruvbox-dark
+    '';
 
   dontFixup = true;
 }

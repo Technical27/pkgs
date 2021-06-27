@@ -1,4 +1,14 @@
-{ stdenv, lib, python3Packages, fetchFromGitHub, cobs, scan-build, rfc6266-parser, observable, pypng, click }:
+{ stdenv
+, lib
+, python3Packages
+, fetchFromGitHub
+, cobs
+, scan-build
+, rfc6266-parser
+, observable
+, pypng
+, click
+}:
 
 python3Packages.buildPythonPackage rec {
   name = "pros-cli";
@@ -15,5 +25,22 @@ python3Packages.buildPythonPackage rec {
 
   doCheck = false;
 
-  propagatedBuildInputs = with python3Packages; [ click pyserial cachetools requests tabulate jsonpickle semantic-version colorama pyzmq cobs scan-build rfc6266-parser sentry-sdk observable pypng typing-extensions ];
+  propagatedBuildInputs = with python3Packages; [
+    click
+    pyserial
+    cachetools
+    requests
+    tabulate
+    jsonpickle
+    semantic-version
+    colorama
+    pyzmq
+    cobs
+    scan-build
+    rfc6266-parser
+    sentry-sdk
+    observable
+    pypng
+    typing-extensions
+  ];
 }

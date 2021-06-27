@@ -11,23 +11,17 @@
         };
 
         gruvbox = {
-          dark-theme = prev.callPackage ./outputs/gruvbox.nix { darkTheme = true; };
-          dark-icons = prev.callPackage ./outputs/gruvbox.nix { darkTheme = true; icons = true; };
-          light-theme = prev.callPackage ./outputs/gruvbox.nix {};
-          light-icons = prev.callPackage ./outputs/gruvbox.nix { icons = true; };
+          theme = prev.callPackage ./outputs/gruvbox.nix {};
+          icons = prev.callPackage ./outputs/gruvbox.nix { icons = true; };
         };
 
         tools = {
           pros = import ./outputs/tools/pros { pkgs = final; };
           info = (import ./outputs/tools/info { pkgs = prev; }).package;
-          mako = prev.mako.overrideAttrs (old: { patches = [ ./outputs/tools/mako.patch ]; });
-          theme = prev.callPackage ./outputs/tools/theme {};
           wgvpn = prev.callPackage ./outputs/tools/wgvpn {};
           polybar = prev.polybar.override { i3GapsSupport = true; };
           glfw-wayland = prev.callPackage ./outputs/tools/glfw.nix {};
         };
-
-        vim = import ./outputs/vim { inherit (prev) fetchFromGitHub vimUtils; };
 
         games = {
           # TODO: maybe add this again for shapez.io
