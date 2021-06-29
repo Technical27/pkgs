@@ -21,6 +21,16 @@
           wgvpn = prev.callPackage ./outputs/tools/wgvpn {};
           polybar = prev.polybar.override { i3GapsSupport = true; };
           glfw-wayland = prev.callPackage ./outputs/tools/glfw.nix {};
+          tree-sitter = prev.tree-sitter.overrideAttrs (
+            old: {
+              src = prev.fetchFromGitHub {
+                owner = "tree-sitter";
+                repo = "tree-sitter";
+                rev = "cd96552448a6e0d4eb27fc54b27cb5130c4b6f76";
+                sha256 = "sha256-l2XiqyGe5dwvDxM32xSSl8caUyAuNsVfRpAQZ/B5M9U=";
+              };
+            }
+          );
         };
 
         games = {
