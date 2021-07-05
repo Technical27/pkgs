@@ -36,7 +36,7 @@ appimageTools.wrapType2 rec {
 
   extraInstallCommands = ''
     mkdir -p $out/share/applications
-    cp ${desktopItem}/share/applications/ $out/share/
+    cp ${desktopItem}/share/applications/* $out/share/applications
     cp -r ${appimageContents}/usr/share/icons/ $out/share/
   '';
 
