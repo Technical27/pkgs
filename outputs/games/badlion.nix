@@ -30,12 +30,12 @@ let
         - do nix-store --add-fixed sha256 ${name}
     '';
   };
-in appimageTools.wrapType2 rec {
+in
+appimageTools.wrapType2 rec {
   inherit name src;
 
   extraInstallCommands = ''
-    mkdir -p $out/share/applications
-    cp ${desktopItem}/share/applications/* $out/share/applications
+    cp -r ${desktopItem}/share/applications/ $out/share/
     cp -r ${appimageContents}/usr/share/icons/ $out/share/
   '';
 
