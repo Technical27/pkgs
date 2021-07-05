@@ -35,7 +35,8 @@ appimageTools.wrapType2 rec {
   inherit name src;
 
   extraInstallCommands = ''
-    cp -r ${desktopItem}/share/applications/ $out/share/
+    mkdir -p $out/share/applications
+    cp ${desktopItem}/share/applications/ $out/share/
     cp -r ${appimageContents}/usr/share/icons/ $out/share/
   '';
 
