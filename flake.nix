@@ -31,6 +31,7 @@
               };
             }
           );
+          mangohud = prev.callPackage ./output/tools/mangohud {};
         };
 
         games = {
