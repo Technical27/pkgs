@@ -31,7 +31,10 @@
               };
             }
           );
-          mangohud = prev.callPackage ./outputs/tools/mangohud {};
+          mangohud = prev.callPackage ./outputs/tools/mangohud {
+            libXNVCtrl = final.linuxPackages.nvidia_x11_beta.settings.libXNVCtrl;
+            mangohud32 = final.pkgsi686Linux.mangohud;
+          };
         };
 
         games = {
