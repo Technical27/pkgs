@@ -35,6 +35,7 @@
             libXNVCtrl = final.linuxPackages.nvidia_x11_beta.settings.libXNVCtrl;
             mangohud32 = final.pkgsi686Linux.mangohud;
           };
+          cemu = prev.libsForQt5.callPackage ./outputs/tools/cemu.nix {};
         };
 
         games = {
