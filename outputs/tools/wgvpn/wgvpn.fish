@@ -38,8 +38,10 @@ switch $argv[1]
     if test $connected_ipv4 = $connected_ipv6
       if test $connected_ipv4 = "true"
         echo "vpn connected"
+        exit 0
       else
         echo "vpn disconnected"
+        exit 1
       end
     else
       if test $connected_ipv4 = "true"
@@ -47,6 +49,7 @@ switch $argv[1]
       else
         echo "connected only on ipv6"
       end
+      exit 1
     end
   case "*"
     echo "use 'up' or 'down' to activate/deactivate the wireguard vpn or 'status' to check"
