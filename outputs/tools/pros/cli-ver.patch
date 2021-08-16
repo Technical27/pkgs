@@ -6,7 +6,7 @@ index f825267..5f133ae 100644
  
  @lru_cache(1)
  def get_version():
-+    return "3.2.1"
++    return "3.2.2"
      try:
          ver = open(os.path.join(os.path.dirname(__file__), '..', '..', 'version')).read().strip()
          if ver is not None:

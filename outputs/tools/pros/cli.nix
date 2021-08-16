@@ -12,7 +12,7 @@
 
 python3Packages.buildPythonPackage rec {
   name = "pros-cli";
-  version = "3.2.1";
+  version = "3.2.2";
 
   patches = [ ./cli-ver.patch ];
 
@@ -20,10 +20,11 @@ python3Packages.buildPythonPackage rec {
     owner = "purduesigbots";
     repo = name;
     rev = version;
-    sha256 = "sha256-xlDoXgKAniVkla3qcVJWE5u73c/k69rGbgZB3U/Bp5c=";
+    sha256 = "sha256-bSByUlNadILnn2985TohVI28Co8gUaX86pT3foRd8is=";
   };
 
   doCheck = false;
+  pythonImportsCheck = [ "pros" ];
 
   propagatedBuildInputs = with python3Packages; [
     click
