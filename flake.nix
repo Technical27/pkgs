@@ -20,7 +20,16 @@
           info = (import ./outputs/tools/info { pkgs = prev; }).package;
           wgvpn = prev.callPackage ./outputs/tools/wgvpn {};
           polybar = prev.polybar.override { i3GapsSupport = true; };
-          glfw-wayland = prev.callPackage ./outputs/tools/glfw.nix {};
+          glfw-wayland = prev.glfw-wayland.overrideAttrs (
+            old: {
+              patches = old.patches ++ [
+                # ./outputs/tools/glfw/0001-set-O_NONBLOCK-on-repeat-timerfd.patch already included
+                ./outputs/tools/glfw/0002-Don-t-crash-on-calls-to-focus-or-icon.patch
+                ./outputs/tools/glfw/0003-fix-broken-opengl-screenshots-on-mutter.patch
+                ./outputs/tools/glfw/0004-Do-not-crash-on-window-position-set.patch
+              ];
+            }
+          );
           tree-sitter = prev.tree-sitter.overrideAttrs (
             old: {
               src = prev.fetchFromGitHub {
@@ -33,9 +42,10 @@
           );
           mangohud = prev.callPackage ./outputs/tools/mangohud {
             libXNVCtrl = final.linuxPackages.nvidia_x11_beta.settings.libXNVCtrl;
-            mangohud32 = final.pkgsi686Linux.mangohud;
+            mangohud32 = final.pkgsi686Linux.cpkgs.tools.mangohud;
           };
           cemu = prev.libsForQt5.callPackage ./outputs/tools/cemu.nix {};
+          wlroots = prev.callPackage ./outputs/tools/wlroots.nix {};
         };
 
         games = {
@@ -44,6 +54,7 @@
           guilded = prev.callPackage ./outputs/games/guilded.nix {};
           badlion-client = prev.callPackage ./outputs/games/badlion.nix {};
           roblox = import ./outputs/games/roblox final prev;
+          gamescope = prev.callPackage ./outputs/games/gamescope.nix {};
         };
       };
     };
