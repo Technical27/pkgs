@@ -93,6 +93,6 @@ stdenv.mkDerivation {
   '';
 
   postInstall = ''
-    rm $out/include
+    rm -r $out/include
   '';
 }
