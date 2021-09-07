@@ -53,7 +53,11 @@
           # steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
           guilded = prev.callPackage ./outputs/games/guilded.nix {};
           badlion-client = prev.callPackage ./outputs/games/badlion.nix {};
-          roblox = import ./outputs/games/roblox final prev;
+          roblox.grapejuice = (
+            prev.grapejuice.override {
+              wine = final.wineWowPackages.staging;
+            }
+          );
           gamescope = prev.callPackage ./outputs/games/gamescope.nix {};
         };
       };
