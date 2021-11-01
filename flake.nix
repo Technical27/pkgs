@@ -11,14 +11,14 @@
         };
 
         gruvbox = {
-          theme = prev.callPackage ./outputs/gruvbox.nix {};
+          theme = prev.callPackage ./outputs/gruvbox.nix { };
           icons = prev.callPackage ./outputs/gruvbox.nix { icons = true; };
         };
 
         tools = {
           pros = import ./outputs/tools/pros { pkgs = final; };
           info = (import ./outputs/tools/info { pkgs = prev; }).package;
-          wgvpn = prev.callPackage ./outputs/tools/wgvpn {};
+          wgvpn = prev.callPackage ./outputs/tools/wgvpn { };
           polybar = prev.polybar.override { i3GapsSupport = true; };
           glfw-wayland = prev.glfw-wayland.overrideAttrs (
             old: {
@@ -44,21 +44,22 @@
             libXNVCtrl = final.linuxPackages.nvidia_x11_beta.settings.libXNVCtrl;
             mangohud32 = final.pkgsi686Linux.cpkgs.tools.mangohud;
           };
-          cemu = prev.libsForQt5.callPackage ./outputs/tools/cemu.nix {};
-          wlroots = prev.callPackage ./outputs/tools/wlroots.nix {};
+          cemu = prev.libsForQt5.callPackage ./outputs/tools/cemu.nix { };
+          wlroots = prev.callPackage ./outputs/tools/wlroots.nix { };
+          firebird = prev.libsForQt5.callPackage ./outputs/tools/firebird.nix { };
         };
 
         games = {
           # TODO: maybe add this again for shapez.io
           # steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
-          guilded = prev.callPackage ./outputs/games/guilded.nix {};
-          badlion-client = prev.callPackage ./outputs/games/badlion.nix {};
+          guilded = prev.callPackage ./outputs/games/guilded.nix { };
+          badlion-client = prev.callPackage ./outputs/games/badlion.nix { };
           roblox.grapejuice = (
             prev.grapejuice.override {
               wine = final.wineWowPackages.staging;
             }
           );
-          gamescope = prev.callPackage ./outputs/games/gamescope.nix {};
+          gamescope = prev.callPackage ./outputs/games/gamescope.nix { };
         };
       };
     };
