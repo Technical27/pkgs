@@ -60,6 +60,7 @@
             }
           );
           gamescope = prev.callPackage ./outputs/games/gamescope.nix { };
+          grapejuice = prev.callPackage ./outputs/games/roblox { };
         };
       };
     };
