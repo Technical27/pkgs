@@ -47,6 +47,13 @@
           cemu = prev.libsForQt5.callPackage ./outputs/tools/cemu.nix { };
           wlroots = prev.callPackage ./outputs/tools/wlroots.nix { };
           firebird = prev.libsForQt5.callPackage ./outputs/tools/firebird.nix { };
+          joplin = prev.joplin-desktop.overrideAttrs (old: rec {
+            version = "2.5.10";
+            src = prev.fetchurl {
+              url = "https://github.com/laurent22/joplin/releases/download/v${version}/Joplin-${version}.AppImage";
+              sha256 = "sha256-636/SifcawS1fdsrSCAASvT147EKn02IXN7DBZRfXME=";
+            };
+          });
         };
 
         games = {
