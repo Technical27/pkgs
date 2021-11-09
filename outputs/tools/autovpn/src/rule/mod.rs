@@ -6,7 +6,7 @@ use neli::err::NlError;
 use neli::nl::{NlPayload, Nlmsghdr};
 use neli::rtnl::{Rtattr, Rtmsg};
 use neli::socket::NlSocketHandle;
-use neli::types::{Buffer, RtBuffer};
+use neli::types::{Buffer, NlBuffer, RtBuffer};
 
 pub fn connect_rtnetlink() -> Result<NlSocketHandle, std::io::Error> {
     NlSocketHandle::connect(NlFamily::Route, None, &[])
@@ -66,19 +66,27 @@ fn gen_hdr(family: RtAddrFamily, rtm: Rtm, flags: &[NlmF]) -> Nlmsghdr<Rtm, Rtms
 }
 
 fn add_rule(socket: &mut NlSocketHandle, family: RtAddrFamily) -> Result<(), NlError> {
-    socket.send(gen_hdr(
-        family,
-        Rtm::Newrule,
-        &[NlmF::Request, NlmF::Create],
-    ))
+    if !check_rules(socket, family)? {
+        return socket.send(gen_hdr(
+            family,
+            Rtm::Newrule,
+            &[NlmF::Request, NlmF::Create],
+        ));
+    }
+
+    Ok(())
 }
 
 fn remove_rule(socket: &mut NlSocketHandle, family: RtAddrFamily) -> Result<(), NlError> {
-    socket.send(gen_hdr(
-        family,
-        Rtm::Delrule,
-        &[NlmF::Request, NlmF::Create],
-    ))
+    if check_rules(socket, family)? {
+        return socket.send(gen_hdr(
+            family,
+            Rtm::Delrule,
+            &[NlmF::Request, NlmF::Create],
+        ));
+    }
+
+    Ok(())
 }
 
 pub fn enable_rules(socket: &mut NlSocketHandle) -> Result<(), NlError> {
@@ -87,4 +95,26 @@ pub fn enable_rules(socket: &mut NlSocketHandle) -> Result<(), NlError> {
 
 pub fn disable_rules(socket: &mut NlSocketHandle) -> Result<(), NlError> {
     remove_rule(socket, RtAddrFamily::Inet).and_then(|_| remove_rule(socket, RtAddrFamily::Inet6))
+}
+
+pub fn check_rules(socket: &mut NlSocketHandle, family: RtAddrFamily) -> Result<bool, NlError> {
+    socket.send(gen_hdr(family, Rtm::Getrule, &[NlmF::Request, NlmF::Match]))?;
+
+    let msgs: NlBuffer<Rtm, Rtmsg> = socket.recv_all()?;
+
+    for msg in msgs {
+        if let Some(payload) = msg.nl_payload.get_payload() {
+            for attr in payload.rtattrs.iter() {
+                if attr.rta_type == Rta::Table {
+                    let mut num: [u8; 4] = Default::default();
+                    num.copy_from_slice(attr.rta_payload.as_ref());
+                    if u32::from_ne_bytes(num) == 1000 {
+                        return Ok(true);
+                    }
+                }
+            }
+        }
+    }
+
+    Ok(false)
 }
