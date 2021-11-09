@@ -54,6 +54,7 @@
               sha256 = "sha256-636/SifcawS1fdsrSCAASvT147EKn02IXN7DBZRfXME=";
             };
           });
+          autovpn = prev.callPackage ./outputs/tools/autovpn { };
         };
 
         games = {
