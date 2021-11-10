@@ -50,10 +50,10 @@ fn main() {
     while running.load(Ordering::SeqCst) {
         if let Ok(ssid) = get_ssid(&mut nlsocket, nlid, wlan_ifindex) {
             if let Some(ssid) = ssid {
-                if ssid == "DCSD.mobilt" && !enabled {
+                if (ssid != "JAY5" && ssid != "JAY2") && !enabled {
                     enabled = true;
                     enable_vpn(&mut rtsocket, &dbus_proxy, wg_ifindex);
-                } else if ssid != "DCSD.mobilt" && enabled {
+                } else if (ssid == "JAY5" || ssid == "JAY2") && enabled {
                     enabled = false;
                     disable_vpn(&mut rtsocket, &dbus_proxy, wg_ifindex);
                 }
