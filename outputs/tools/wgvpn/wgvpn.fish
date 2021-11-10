@@ -90,9 +90,9 @@ switch $argv[1]
       check_status
       set vpn_status $status
       if test $status = 0
-        echo '{\"class\": \"connected\", \"text\": \"VPN \"}'
+        echo '{"class": "connected", "text": "VPN "}'
       else
-        echo '{\"class\": \"disconnected\", \"text\": \"VPN \"}'
+        echo '{"class": "disconnected", "text": "VPN "}'
       end
       sleep 10
     end
