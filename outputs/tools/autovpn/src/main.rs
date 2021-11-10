@@ -66,7 +66,5 @@ fn main() {
     }
 
     println!("exiting...");
-    if enabled {
-        disable_vpn(&mut rtsocket, &dbus_proxy, wg_ifindex);
-    }
+    disable_vpn(&mut rtsocket, &dbus_proxy, wg_ifindex);
 }
