@@ -41,7 +41,7 @@
         );
         mangohud = prev.callPackage ./outputs/mangohud {
           libXNVCtrl = final.linuxPackages.nvidia_x11_beta.settings.libXNVCtrl;
-          mangohud32 = final.pkgsi686Linux.cpkgs.tools.mangohud;
+          mangohud32 = final.pkgsi686Linux.cpkgs.mangohud;
         };
         cemu = prev.libsForQt5.callPackage ./outputs/cemu.nix { };
         wlroots = prev.callPackage ./outputs/wlroots.nix { };
