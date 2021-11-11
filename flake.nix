@@ -41,7 +41,7 @@
         guilded = prev.callPackage ./outputs/guilded.nix { };
         badlion-client = prev.callPackage ./outputs/badlion.nix { };
         grapejuice = prev.callPackage ./outputs/roblox { };
-        gamescope = prev.callPackage ./outputs/gamescope.nix { };
+        gamescope = prev.callPackage ./outputs/gamescope { };
       };
     };
 
