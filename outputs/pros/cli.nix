@@ -27,7 +27,6 @@ python3Packages.buildPythonPackage rec {
   pythonImportsCheck = [ "pros" ];
 
   propagatedBuildInputs = with python3Packages; [
-    click
     pyserial
     cachetools
     requests
@@ -36,12 +35,15 @@ python3Packages.buildPythonPackage rec {
     semantic-version
     colorama
     pyzmq
+    sentry-sdk
+    typing-extensions
+  ] ++ [
+    # custom deps that aren't in repos or are old
+    click
     cobs
+    pypng
     scan-build
     rfc6266-parser
-    sentry-sdk
     observable
-    pypng
-    typing-extensions
   ];
 }

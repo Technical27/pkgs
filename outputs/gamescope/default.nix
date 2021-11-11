@@ -85,7 +85,7 @@ stdenv.mkDerivation {
     xwayland
   ];
 
-  patches = [ ./gamescope.patch ];
+  patches = [ ./fix-wlroots.patch ];
 
   preConfigure = ''
     cp -r ${wlroots}/* subprojects/wlroots/
