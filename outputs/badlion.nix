@@ -21,7 +21,7 @@ let
   src = fetchurl {
     name = "BadlionClient";
     url = "https://client-updates-cdn77.badlion.net/BadlionClient";
-    sha256 = "sha256-uhluveIjyLr7oJe5tAREpxdRjtMkky9fUAgU5ZP/qtw=";
+    sha256 = "sha256-lKJcE539XiWb014+JyOi0aRZt1GaJfcB8Znf5MUgC3E=";
   };
 in
 appimageTools.wrapType2 rec {
