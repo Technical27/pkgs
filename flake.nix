@@ -42,6 +42,8 @@
         badlion-client = prev.callPackage ./outputs/badlion.nix { };
         grapejuice = prev.callPackage ./outputs/roblox { };
         gamescope = prev.callPackage ./outputs/gamescope { };
+
+        vscodium = prev.callPackage ./outputs/vscodium.nix { };
       };
     };
 
