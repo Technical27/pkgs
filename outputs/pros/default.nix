@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, stdenv, lib, python3Packages, fetchFromGitHub }:
 
 let
   scan-build = pkgs.python3Packages.callPackage ./scan-build.nix { };
@@ -10,4 +10,48 @@ let
   # relies on an old version of click
   click = pkgs.python3Packages.callPackage ./click.nix { };
 in
-pkgs.callPackage ./cli.nix { inherit cobs scan-build rfc6266-parser observable pypng click; }
+
+python3Packages.buildPythonPackage rec {
+  name = "pros-cli";
+  version = "3.2.2";
+
+  patches = [ ./cli-ver.patch ];
+
+  src = fetchFromGitHub {
+    owner = "purduesigbots";
+    repo = name;
+    rev = version;
+    sha256 = "sha256-bSByUlNadILnn2985TohVI28Co8gUaX86pT3foRd8is=";
+  };
+
+  doCheck = false;
+  pythonImportsCheck = [ "pros" ];
+
+  propagatedBuildInputs = with python3Packages; [
+    pyserial
+    cachetools
+    requests
+    tabulate
+    jsonpickle
+    semantic-version
+    colorama
+    pyzmq
+    sentry-sdk
+    typing-extensions
+  ] ++ [
+    # custom deps that aren't in repos or are old
+    click
+    cobs
+    pypng
+    scan-build
+    rfc6266-parser
+    observable
+  ];
+
+  meta = {
+    homepage = "https://github.com/purduesigbots/pros-cli";
+    description = "Command Line Interface for managing PROS projects";
+    license = lib.licenses.mpl20;
+    maintainers = with lib.maintainers; [ Technical27 ];
+  };
+}
