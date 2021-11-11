@@ -1,4 +1,4 @@
-{ appimageTools, lib, requireFile, makeDesktopItem }:
+{ appimageTools, lib, fetchurl, makeDesktopItem }:
 
 let
   name = "badlion-client";
@@ -18,17 +18,10 @@ let
     inherit name src;
   };
 
-  src = requireFile rec {
+  src = fetchurl {
     name = "BadlionClient";
-    url = "https://client.badlion.net/";
+    url = "https://client-updates-cdn77.badlion.net/BadlionClient";
     sha256 = "sha256-uhluveIjyLr7oJe5tAREpxdRjtMkky9fUAgU5ZP/qtw=";
-    message = ''
-      This Nix expression requires Badlion Client to be downloaded manually.
-      In order to build it, you need to:
-        - go to ${url}
-        - download under "Linux Download"
-        - do nix-store --add-fixed sha256 ${name}
-    '';
   };
 in
 appimageTools.wrapType2 rec {
