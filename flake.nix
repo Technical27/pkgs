@@ -44,6 +44,8 @@
         gamescope = prev.callPackage ./outputs/gamescope { };
 
         vscodium = prev.callPackage ./outputs/vscodium.nix { };
+
+        wine-fusion360 = prev.callPackage ./outputs/wine-fusion360 { };
       };
     };
 
