@@ -41,6 +41,16 @@ lib.overrideDerivation wineWowPackages.stagingFull (self:
       disabledPatchsets = [ ];
     };
 
+    postPatch = ''
+      patchShebangs tools
+      cp -r ${patch}/patches .
+      chmod +w patches
+      cd patches
+      patchShebangs gitapply.sh
+      ./patchinstall.sh DESTDIR="$PWD/.." --all ${lib.concatMapStringsSep " " (ps: "-W ${ps}") patch.disabledPatchsets}
+      cd ..
+    '';
+
     patches = self.patches ++ [
       ./patches/childwindow.patch
       ./patches/wayland.patch
