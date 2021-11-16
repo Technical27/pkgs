@@ -9,9 +9,9 @@ lib.overrideDerivation wineWowPackages.stagingFull (self:
   in
   rec {
     src = fetchurl rec {
-      version = "6.19";
+      version = "6.17";
       url = "https://dl.winehq.org/wine/source/6.x/wine-${version}.tar.xz";
-      sha256 = "sha256-QYLi2WJ3BMw3b0b8MQlYDqkHd5b0T17oPgjj6Wvwq2Y=";
+      sha256 = "sha256-nbHyQ12AJiw3dzF98HWFWu6j5qUst3xjDsGysfuUjwg=";
 
       gecko32 = fetchurl rec {
         version = "2.47.1";
@@ -25,6 +25,12 @@ lib.overrideDerivation wineWowPackages.stagingFull (self:
         sha256 = "0jj7azmpy07319238g52a8m4nkdwj9g010i355ykxnl8m5wjwcb9";
       };
 
+      mono = fetchurl rec {
+        version = "6.3.0";
+        url = "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
+        sha256 = "sha256-pfAtMqAoNpKkpiX1Qc+7tFGIMShHTFyANiOFMXzQmfA=";
+      };
+
       patches = [
         # Also look for root certificates at $NIX_SSL_CERT_FILE
         ./cert-path.patch
@@ -33,7 +39,7 @@ lib.overrideDerivation wineWowPackages.stagingFull (self:
 
     patch = fetchFromGitHub rec {
       inherit (src) version;
-      sha256 = "sha256-1Ng+kFFnqEndlCvI0eG1YmyqPdcolD3cVJ2KU5GU7Z4=";
+      sha256 = "sha256-rR5m6D8M3vTXXIHzsF8+o2G5rlRS2HLfCHoatbJwlrQ=";
       owner = "wine-staging";
       repo = "wine-staging";
       rev = "v${version}";
