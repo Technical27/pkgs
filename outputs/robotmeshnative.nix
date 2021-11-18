@@ -10,9 +10,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7kPeLFRAfQnOJVwQZ4iYWE1NkM6zRhJ6k4WwRrOdkQg=";
   };
 
-  nativeBuildInputs = with pkgs; [ dpkg ];
+  nativeBuildInputs = with pkgs; [ dpkg autoPatchelfHook ];
 
-  buildInputs = with pkgs; [ libusb ];
+  buildInputs = with pkgs; [ libusb stdenv.cc.cc ];
 
   unpackPhase = ''
     mkdir pkg
