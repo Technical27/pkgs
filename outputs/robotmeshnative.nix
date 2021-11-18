@@ -31,5 +31,7 @@ stdenv.mkDerivation rec {
     # fix native binary paths
     substituteInPlace $out/lib/mozilla/native-messaging-hosts/com.robotmesh.robotmeshconnect.json --replace /opt/RobotMeshConnect $out/bin
     substituteInPlace $out/etc/opt/chrome/native-messaging-hosts/com.robotmesh.robotmeshconnect.json --replace /opt/RobotMeshConnect $out/bin
+
+    cp -r $out/etc/opt/chrome $out/etc/chromium
   '';
 }
