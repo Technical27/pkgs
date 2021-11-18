@@ -27,6 +27,7 @@ stdenv.mkDerivation rec {
     cp -r etc $out/etc
     cp opt/RobotMeshConnect/RobotMeshConnectNativeHost $out/bin
     cp -r usr/lib $out/lib
+    cp -r usr/share $out/share
 
     # fix native binary paths
     substituteInPlace $out/lib/mozilla/native-messaging-hosts/com.robotmesh.robotmeshconnect.json --replace /opt/RobotMeshConnect $out/bin
