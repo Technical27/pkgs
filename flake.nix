@@ -17,11 +17,12 @@
         polybar = prev.polybar.override { i3GapsSupport = true; };
         glfw-wayland = prev.glfw-wayland.overrideAttrs (
           old: {
-            patches = old.patches ++ [
-              # ./outputs/glfw/0001-set-O_NONBLOCK-on-repeat-timerfd.patch already included
+            patches = [
               ./outputs/glfw/0002-Don-t-crash-on-calls-to-focus-or-icon.patch
               ./outputs/glfw/0003-fix-broken-opengl-screenshots-on-mutter.patch
               ./outputs/glfw/0004-Do-not-crash-on-window-position-set.patch
+              # NOTE: This is now a file instead of a list...
+              old.patches
             ];
           }
         );
