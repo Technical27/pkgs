@@ -81,9 +81,9 @@
       };
 
       nvidia = final: prev: {
-        wlroots = final.cpkgs.wlroots;
-        egl-wayland = final.cpkgs.egl-wayland;
-        libglvnd = final.cpkgs.libglvnd;
+        wlroots = prev.cpkgs.wlroots;
+        egl-wayland = prev.cpkgs.egl-wayland;
+        libglvnd = prev.cpkgs.libglvnd;
       };
     };
 
