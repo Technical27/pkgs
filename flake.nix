@@ -60,27 +60,26 @@
             sed -i 's/assert(argb8888 &&/assert(true || argb8888 ||/g' 'render/wlr_renderer.c'
           '';
         });
-        # try without these
-        # egl-wayland = prev.egl-wayland.overrideAttrs (old: rec {
-        #   version = "1.1.9.99";
-        #   src = prev.fetchFromGitHub {
-        #     owner = "NVIDIA";
-        #     repo = "egl-wayland";
-        #     rev = "daab8546eca8428543a4d958a2c53fc747f70672"; # Oct 29 2021
-        #     sha256 = "sha256-IrLeqBW74mzo2OOd5GzUPDcqaxrsoJABwYyuKTGtPsw=";
-        #   };
-        #   buildInputs = old.buildInputs ++ [ prev.wayland-protocols ];
-        # });
-        # libglvnd = prev.libglvnd.overrideAttrs (old: rec {
-        #   version = "1.3.4.99";
-        #   src = prev.fetchFromGitLab {
-        #     domain = "gitlab.freedesktop.org";
-        #     owner = "glvnd";
-        #     repo = "libglvnd";
-        #     rev = "2d69d4720c56d2d8ab1f81eff62eecd069f14c62"; # Oct 28 2021
-        #     sha256 = "sha256-137gLX7LgfOBNnci9rnp4fg194m3ieY2q9HuRhQdb1Y=";
-        #   };
-        # });
+        egl-wayland = prev.egl-wayland.overrideAttrs (old: rec {
+          version = "1.1.9.99";
+          src = prev.fetchFromGitHub {
+            owner = "NVIDIA";
+            repo = "egl-wayland";
+            rev = "daab8546eca8428543a4d958a2c53fc747f70672"; # Oct 29 2021
+            sha256 = "sha256-IrLeqBW74mzo2OOd5GzUPDcqaxrsoJABwYyuKTGtPsw=";
+          };
+          buildInputs = old.buildInputs ++ [ prev.wayland-protocols ];
+        });
+        libglvnd = prev.libglvnd.overrideAttrs (old: rec {
+          version = "1.3.4.99";
+          src = prev.fetchFromGitLab {
+            domain = "gitlab.freedesktop.org";
+            owner = "glvnd";
+            repo = "libglvnd";
+            rev = "2d69d4720c56d2d8ab1f81eff62eecd069f14c62"; # Oct 28 2021
+            sha256 = "sha256-137gLX7LgfOBNnci9rnp4fg194m3ieY2q9HuRhQdb1Y=";
+          };
+        });
       };
     };
 
