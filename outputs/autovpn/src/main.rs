@@ -53,7 +53,7 @@ fn main() {
     let mut enabled = false;
     while running.load(Ordering::SeqCst) {
         if enabled {
-            enable_rules(rtsocket).unwrap();
+            enable_rules(&mut rtsocket).unwrap();
         }
 
         if let Ok(ssid) = get_ssid(&mut nlsocket, nlid, wlan_ifindex) {
