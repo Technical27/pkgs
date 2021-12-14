@@ -1,4 +1,4 @@
-use neli::consts::nl::{NlmF, NlmFFlags};
+use neli::consts::nl::{NlmF, NlmFFlags, Nlmsg};
 use neli::consts::rtnl::Rtm;
 use neli::consts::rtnl::{RtAddrFamily, Rta, RtmF, RtmFFlags};
 use neli::consts::socket::NlFamily;
@@ -102,6 +102,7 @@ pub fn check_rules(socket: &mut NlSocketHandle, family: RtAddrFamily) -> Result<
 
     let msgs: NlBuffer<Rtm, Rtmsg> = socket.recv_all()?;
 
+    let mut rule_exists = false;
     for msg in msgs {
         if let Some(payload) = msg.nl_payload.get_payload() {
             for attr in payload.rtattrs.iter() {
@@ -109,12 +110,18 @@ pub fn check_rules(socket: &mut NlSocketHandle, family: RtAddrFamily) -> Result<
                     let mut num: [u8; 4] = Default::default();
                     num.copy_from_slice(attr.rta_payload.as_ref());
                     if u32::from_ne_bytes(num) == 1000 {
-                        return Ok(true);
+                        rule_exists = true;
                     }
                 }
             }
         }
     }
 
-    Ok(false)
+    if let Some(done) = socket.recv::<Nlmsg, u8>()? {
+        if done.nl_flags.contains(&NlmF::Multi) && done.nl_type != Nlmsg::Done {
+            return Err(NlError::new("no done msg recieved"));
+        }
+    }
+
+    Ok(rule_exists)
 }
