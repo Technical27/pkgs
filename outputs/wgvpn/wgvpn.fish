@@ -86,14 +86,12 @@ switch $argv[1]
         echo "vpn only connected on ipv6"
     end
   case bar
-    while true
-      check_status
-      set vpn_status $status
-      if test $status = 0
-        echo '{"class": "connected", "text": "VPN "}'
-      else
-        echo '{"class": "disconnected", "text": "VPN "}'
-      end
+    check_status
+    set vpn_status $status
+    if test $status = 0
+      echo '{"class": "connected", "text": "VPN "}'
+    else
+      echo '{"class": "disconnected", "text": "VPN "}'
     end
   case "*"
     echo "use 'up' or 'down' to activate/deactivate the wireguard vpn or 'status' to check"
