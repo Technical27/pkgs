@@ -94,7 +94,6 @@ switch $argv[1]
       else
         echo '{"class": "disconnected", "text": "VPN "}'
       end
-      sleep 10
     end
   case "*"
     echo "use 'up' or 'down' to activate/deactivate the wireguard vpn or 'status' to check"
