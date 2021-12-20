@@ -37,7 +37,7 @@
               sha256 = "sha256-636/SifcawS1fdsrSCAASvT147EKn02IXN7DBZRfXME=";
             };
           });
-          autovpn = prev.callPackage ./outputs/autovpn { };
+          autovpn = prev.callPackage ./outputs/autovpn.nix { };
 
           # TODO: maybe add this again for shapez.io
           # steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
