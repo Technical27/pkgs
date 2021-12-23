@@ -3,7 +3,7 @@
 
 stdenv.mkDerivation rec {
   pname = "robotmeshnative";
-  version = "1.0.0";
+  version = "0.6";
 
   src = fetchurl {
     url = "https://www.robotmesh.com/downloads/robotmeshconnect-0.6_amd64.deb";

@@ -2,13 +2,13 @@
 
 let
   name = "badlion-client";
-  version = "3.1.10";
+  version = "3.6.2";
 
   desktopItem = makeDesktopItem {
     name = "Badlion Client";
     exec = "badlion-client";
     icon = "badlionclient";
-    comment = "Minecraft 1.7, 1.8, 1.12, 1.15, and 1.16 Client";
+    comment = "Minecraft Client";
     desktopName = "Badlion Client";
     genericName = "Minecraft Client";
     categories = "Game;";
@@ -21,7 +21,7 @@ let
   src = fetchurl {
     name = "BadlionClient";
     url = "https://client-updates-cdn77.badlion.net/BadlionClient";
-    sha256 = "sha256-lKJcE539XiWb014+JyOi0aRZt1GaJfcB8Znf5MUgC3E=";
+    sha256 = "sha256-7QKWHjlC3tpAPWOtYCBdQDhPtBKqBO99taxfcoVz7Cw=";
   };
 in
 appimageTools.wrapType2 rec {
@@ -36,7 +36,7 @@ appimageTools.wrapType2 rec {
   extraPkgs = pkgs: [ pkgs.libpulseaudio ];
 
   meta = with lib; {
-    description = "Minecraft 1.7, 1.8, 1.12, 1.15, and 1.16 Client";
+    description = "Minecraft Client";
     homepage = "https://client.badlion.net/";
     license = with licenses; [ unfree ];
     maintainers = with maintainers; [ Technical27 ];

@@ -15,15 +15,12 @@
 , webkitgtk
 , xorg
 , libpulseaudio
-, libwnck3
+, libwnck
 , downloaderSupport ? true
 , ffmpeg
 , youtube-dl
 }:
 
-let
-  downloaderPath = lib.makeBinPath [ ffmpeg youtube-dl ];
-in
 stdenv.mkDerivation rec {
   pname = "soundux";
   version = "0.2.7";
@@ -52,9 +49,9 @@ stdenv.mkDerivation rec {
   # Soundux loads pipewire, pulse and libwnck optionally during runtime
   postFixup = ''
     makeWrapper $out/opt/soundux-${version} $out/bin/soundux \
-      --prefix LD_LIBRARY_PATH ":" ${lib.makeLibraryPath [libpulseaudio pipewire libwnck3 ]} \
+      --prefix LD_LIBRARY_PATH ":" ${lib.makeLibraryPath [ libpulseaudio pipewire libwnck ]} \
       "''${gappsWrapperArgs[@]}" \
-      ${lib.optionalString downloaderSupport "--prefix PATH \":\" " + downloaderPath}
+      ${lib.optionalString downloaderSupport "--prefix PATH \":\" " + (lib.makeBinPath [ ffmpeg youtube-dl ])}
   '';
 
   nativeBuildInputs = [ cmake ninja pkg-config makeWrapper wrapGAppsHook copyDesktopItems ];

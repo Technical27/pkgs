@@ -10,4 +10,5 @@ buildPythonPackage rec {
   };
 
   doCheck = false;
+  pythonImportsCheck = [ "cobs" ];
 }

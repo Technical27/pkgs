@@ -48,8 +48,6 @@
 
           vscodium = prev.callPackage ./outputs/vscodium.nix { };
 
-          wine-fusion360 = prev.callPackage ./outputs/wine-fusion360 { };
-
           robotmeshnative = prev.callPackage ./outputs/robotmeshnative.nix { };
 
           soundux = prev.callPackage ./outputs/soundux.nix { };
