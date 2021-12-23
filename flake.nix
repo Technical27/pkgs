@@ -53,6 +53,8 @@
           robotmeshnative = prev.callPackage ./outputs/robotmeshnative.nix { };
 
           soundux = prev.callPackage ./outputs/soundux.nix { };
+
+          neo = prev.callPackage ./outputs/neo.nix { };
         };
       };
 
