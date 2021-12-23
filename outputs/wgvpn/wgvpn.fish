@@ -3,7 +3,7 @@ if test (id -u) -eq 0
   exit 1
 end
 
-set wg_fwmark 0xc738
+set wg_fwmask 0xc738
 set wg_table 1000
 set wg_rule not from all fwmark $wg_fwmark lookup $wg_table
 
@@ -11,7 +11,7 @@ set wg_rule not from all fwmark $wg_fwmark lookup $wg_table
 set jq_expr \
 "[
 .[] |
-.fwmark == \"$wg_fwmark\" and .src == \"all\" and .table == \"$wg_table\" and .not == null
+.fwmask == \"$wg_fwmask\" and .fwmark == \"0\" and .src == \"all\" and .table == \"$wg_table\" and .not == null
 ] | any"
 
 set connected_ipv4 (ip -4 -j rule list | jq $jq_expr)
