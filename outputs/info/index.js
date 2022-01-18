@@ -92,7 +92,7 @@ if (process.argv[2] == '--waybar') {
         });
       }
     })
-    .catch((err) => JSONLog({ text: '', tooltip: err, class: 'error' }));
+    .catch((err) => JSONLog({ text: '', tooltip: err.message, class: 'error' }));
 } else if (process.argv[2] == '--polybar') {
   noInternet()
     .then((online) => {
