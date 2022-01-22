@@ -53,6 +53,8 @@
           soundux = prev.callPackage ./outputs/soundux.nix { };
 
           neo = prev.callPackage ./outputs/neo.nix { };
+
+          ancs4linux = prev.callPackage ./outputs/ancs4linux { };
         };
       };
 

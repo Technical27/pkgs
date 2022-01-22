@@ -1,12 +1,12 @@
-{ pkgs, stdenv, lib, python3Packages, fetchFromGitHub }:
+{ stdenv, lib, python3Packages, fetchFromGitHub }:
 
 let
-  scan-build = pkgs.python3Packages.callPackage ./scan-build.nix { };
-  cobs = pkgs.python3Packages.callPackage ./cobs.nix { };
-  observable = pkgs.python3Packages.callPackage ./observable.nix { };
-  pypng = pkgs.python3Packages.callPackage ./pypng.nix { };
+  scan-build = python3Packages.callPackage ./scan-build.nix { };
+  cobs = python3Packages.callPackage ./cobs.nix { };
+  observable = python3Packages.callPackage ./observable.nix { };
+  pypng = python3Packages.callPackage ./pypng.nix { };
   # relies on an old version of click
-  click = pkgs.python3Packages.callPackage ./click.nix { };
+  click = python3Packages.callPackage ./click.nix { };
 in
 
 python3Packages.buildPythonPackage rec {
