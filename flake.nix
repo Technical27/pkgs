@@ -2,7 +2,7 @@
   description = "Custom Packages";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-  inputs.nixpkgs-wine-old.url = "github:/nixos/nixpkgs/d127765898cf783e083e277a9abae4f909263956";
+  inputs.nixpkgs-wine-old.url = "github:/nixos/nixpkgs/a7b1e14af9f7d57a9773549d6902d7e119340014";
 
   outputs = { self, nixpkgs, nixpkgs-wine-old }: {
 
