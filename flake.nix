@@ -2,8 +2,9 @@
   description = "Custom Packages";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  inputs.nixpkgs-wine-old.url = "github:/nixos/nixpkgs/bee62e0efe677d5b7c690ee01f41513125e01ada";
 
-  outputs = { self, nixpkgs }: {
+  outputs = { self, nixpkgs, nixpkgs-wine-old }: {
 
     overlays = {
       main = final: prev: {
@@ -55,7 +56,9 @@
           neo = prev.callPackage ./outputs/neo.nix { };
 
           ancs4linux = prev.callPackage ./outputs/ancs4linux { };
-          fusion360-wine = prev.callPackage ./outputs/fusion360-wine { };
+          fusion360-wine = prev.callPackage ./outputs/fusion360-wine {
+            inherit (nixpkgs-wine-old.legacyPackages.x86_64-linux) wineWowPackages;
+          };
         };
       };
 
