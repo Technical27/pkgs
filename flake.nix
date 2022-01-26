@@ -55,6 +55,7 @@
           neo = prev.callPackage ./outputs/neo.nix { };
 
           ancs4linux = prev.callPackage ./outputs/ancs4linux { };
+          fusion360-wine = prev.callPackage ./outputs/fusion360-wine { };
         };
       };
 
