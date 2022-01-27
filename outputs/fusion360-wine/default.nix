@@ -1,5 +1,5 @@
 { wineWowPackages, lib }:
 
-lib.overrideDerivation wineWowPackages.unstable (self: {
+lib.overrideDerivation wineWowPackages.staging (self: {
   patches = self.patches ++ [ ./childwindow.patch ];
 })

@@ -16,26 +16,9 @@
         "type": "github"
       }
     },
-    "nixpkgs-wine-old": {
-      "locked": {
-        "lastModified": 1631433352,
-        "narHash": "sha256-CqnNsunrfjsplL1GtNeBBe5hy+O1dyyQdxN59e3Gdok=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "a7b1e14af9f7d57a9773549d6902d7e119340014",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "a7b1e14af9f7d57a9773549d6902d7e119340014",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs",
-        "nixpkgs-wine-old": "nixpkgs-wine-old"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
