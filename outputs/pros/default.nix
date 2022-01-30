@@ -34,7 +34,8 @@ python3Packages.buildPythonPackage rec {
     semantic-version
     colorama
     pyzmq
-    sentry-sdk
+    # NOTE: Tests are broken right now
+    (sentry-sdk.overrideAttrs (old: { disabledTests = old.disabledTests ++ [ "test_crumb_capture" ]; }))
     typing-extensions
   ] ++ [
     # custom deps that aren't in repos or are old
