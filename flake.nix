@@ -39,8 +39,6 @@
           });
           autovpn = prev.callPackage ./outputs/autovpn.nix { };
 
-          # TODO: maybe add this again for shapez.io
-          # steam = prev.steam.override { extraPkgs = pkgs: with pkgs; [ mesa sqlite ]; };
           guilded = prev.callPackage ./outputs/guilded.nix { };
           badlion-client = prev.callPackage ./outputs/badlion.nix { };
           grapejuice = prev.callPackage ./outputs/roblox { };
