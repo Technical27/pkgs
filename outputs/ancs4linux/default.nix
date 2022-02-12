@@ -11,8 +11,8 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pzmarzly";
     repo = pname;
-    rev = "7b79b20990ebb3efe2b6d4093d8f53f57696d153";
-    sha256 = "sha256-Z9IHc12wWAgpA9QEUXt3KEsDfwyxT9kLFM2iPJPhYhE=";
+    rev = "129c7c1824a76ddceb2010207fc309d47f2e3133";
+    sha256 = "sha256-gEQS7s/XQSXQYzB04MFJVXeucWsIrCPGRr5YiI5AlQQ=";
   };
 
   nativeBuildinputs = with python3Packages; [
