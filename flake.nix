@@ -58,6 +58,8 @@
           olive = prev.libsForQt5.callPackage ./outputs/olive.nix { inherit (prev.darwin.apple_sdk) CoreFoundation; };
 
           pcem = prev.callPackage ./outputs/pcem.nix { };
+
+          n-link = prev.callPackage ./outputs/n-link.nix { };
         };
       };
 
