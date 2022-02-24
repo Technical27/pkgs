@@ -9,6 +9,13 @@ let
     sha256 = "sha256-r7dVxoiDw8nns0WPw3LUiCtID2ZDgiAGF1eYIq7iKnA=";
   };
 
+  desktopItem = makeDesktopItem {
+    name = "N-LINK";
+    exec = "n-link";
+    icon = "n-link";
+    desktopName = "N-LINK";
+  };
+
   appimageContents = appimageTools.extract {
     inherit name src;
   };
@@ -18,6 +25,7 @@ appimageTools.wrapType2 rec {
 
   extraInstallCommands = ''
     mkdir -p $out/share/applications
+    cp ${desktopItem}/share/applications/* $out/share/applications
     cp -r ${appimageContents}/usr/share/icons/ $out/share/
   '';
 
