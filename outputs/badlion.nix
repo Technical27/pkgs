@@ -5,7 +5,7 @@ let
   version = "3.6.2";
 
   desktopItem = makeDesktopItem {
-    name = "Badlion Client";
+    name = "badlion-client";
     exec = "badlion-client";
     icon = "badlionclient";
     comment = "Minecraft Client";

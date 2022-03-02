@@ -66,14 +66,17 @@ stdenv.mkDerivation rec {
     xorg.libXtst
   ];
 
-  desktopItems = makeDesktopItem {
-    name = "Soundux";
-    exec = pname;
-    desktopName = "Soundux";
-    genericName = "Soundboard";
-    categories = "Audio;Music;Player;AudioVideo;";
-    comment = "A universal soundboard that uses PulseAudio modules or PipeWire linking";
-  };
+  desktopItems = [
+    makeDesktopItem
+    {
+      name = "soundux";
+      exec = pname;
+      desktopName = "Soundux";
+      genericName = "Soundboard";
+      categories = "Audio;Music;Player;AudioVideo;";
+      comment = "A universal soundboard that uses PulseAudio modules or PipeWire linking";
+    }
+  ];
 
   meta = with lib; {
     homepage = "https://soundux.rocks/";
