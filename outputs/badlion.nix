@@ -4,15 +4,18 @@ let
   name = "badlion-client";
   version = "3.6.2";
 
-  desktopItem = makeDesktopItem {
-    name = "badlion-client";
-    exec = "badlion-client";
-    icon = "badlionclient";
-    comment = "Minecraft Client";
-    desktopName = "Badlion Client";
-    genericName = "Minecraft Client";
-    categories = "Game;";
-  };
+  desktopItems = [
+    (makeDesktopItem
+      {
+        name = "badlion-client";
+        exec = "badlion-client";
+        icon = "badlionclient";
+        comment = "Minecraft Client";
+        desktopName = "Badlion Client";
+        genericName = "Minecraft Client";
+        categories = "Game;";
+      })
+  ];
 
   appimageContents = appimageTools.extract {
     inherit name src;
@@ -29,7 +32,6 @@ appimageTools.wrapType2 rec {
 
   extraInstallCommands = ''
     mkdir -p $out/share/applications
-    cp ${desktopItem}/share/applications/* $out/share/applications
     cp -r ${appimageContents}/usr/share/icons/ $out/share/
   '';
 

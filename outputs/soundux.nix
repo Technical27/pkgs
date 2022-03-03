@@ -67,15 +67,15 @@ stdenv.mkDerivation rec {
   ];
 
   desktopItems = [
-    makeDesktopItem
-    {
-      name = "soundux";
-      exec = pname;
-      desktopName = "Soundux";
-      genericName = "Soundboard";
-      categories = "Audio;Music;Player;AudioVideo;";
-      comment = "A universal soundboard that uses PulseAudio modules or PipeWire linking";
-    }
+    (makeDesktopItem
+      {
+        name = "soundux";
+        exec = "soundux";
+        desktopName = "Soundux";
+        genericName = "Soundboard";
+        categories = [ "Audio" "Music" "Player" "AudioVideo" ];
+        comment = "A universal soundboard that uses PulseAudio modules or PipeWire linking";
+      })
   ];
 
   meta = with lib; {
