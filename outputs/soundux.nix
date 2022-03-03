@@ -73,7 +73,6 @@ stdenv.mkDerivation rec {
         exec = "soundux";
         desktopName = "Soundux";
         genericName = "Soundboard";
-        categories = [ "Audio" "Music" "Player" "AudioVideo" ];
         comment = "A universal soundboard that uses PulseAudio modules or PipeWire linking";
       })
   ];
