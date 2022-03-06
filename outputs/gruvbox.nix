@@ -1,6 +1,7 @@
 { icons ? false
 , stdenv
 , fetchFromGitHub
+, gtk-engine-murrine
 }:
 
 let
