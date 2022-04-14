@@ -60,6 +60,11 @@
           pcem = prev.callPackage ./outputs/pcem.nix { };
 
           n-link = prev.callPackage ./outputs/n-link.nix { };
+
+          mangohud = prev.callPackage ./outputs/mangohud {
+            libXNVCtrl = prev.linuxPackages.nvidia_x11.settings.libXNVCtrl;
+            mangohud32 = prev.pkgsi686Linux.mangohud;
+          };
         };
       };
 
