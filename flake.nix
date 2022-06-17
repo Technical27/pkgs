@@ -55,7 +55,12 @@
           ancs4linux = prev.callPackage ./outputs/ancs4linux { };
           fusion360-wine = prev.callPackage ./outputs/fusion360-wine { };
 
-          olive = prev.libsForQt5.callPackage ./outputs/olive.nix { inherit (prev.darwin.apple_sdk) CoreFoundation; };
+          olive = prev.libsForQt5.callPackage ./outputs/olive.nix {
+            inherit (prev.darwin.apple_sdk) CoreFoundation;
+            opencolorio = prev.callPackage ./outputs/opencolorio.nix {
+              inherit (prev.darwin.apple_sdk) Carbon GLUT Cocoa;
+            };
+          };
 
           pcem = prev.callPackage ./outputs/pcem.nix { };
 

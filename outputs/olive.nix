@@ -21,13 +21,13 @@
 
 mkDerivation rec {
   pname = "olive-editor";
-  version = "unstable-2022-02-13";
+  version = "unstable-2022-06-17";
 
   src = fetchFromGitHub {
     owner = "olive-editor";
     repo = "olive";
-    rev = "7d52dc19e3bd5e48a066e95669525cb9387afae4";
-    sha256 = "sha256-NL22wszFSh+Lr1Csva4jZyIX4htlIcfh2vnOmX4+zMQ=";
+    rev = "5ef56c80473c78c6016f8e698fe6ec25f8d6ecc8";
+    sha256 = "sha256-M4zXW2HQ34A8WTyWUdoOAQYl7aLSaQ+3FgPYzKwC6t4=";
   };
 
   nativeBuildInputs = [
@@ -55,7 +55,7 @@ mkDerivation rec {
     homepage = "https://www.olivevideoeditor.org/";
     downloadPage = "https://www.olivevideoeditor.org/download.php";
     license = licenses.gpl3;
-    maintainers = [ maintainers.balsoft ];
+    maintainers = [ maintainers.technical27 ];
     platforms = platforms.unix;
   };
 }
