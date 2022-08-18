@@ -72,6 +72,8 @@
           };
 
           biber = prev.callPackage ./outputs/biber.nix { };
+
+          systemd-networkd-vpnc = prev.callPackage ./outputs/systemd-networkd-vpnc.nix { };
         };
       };
 
