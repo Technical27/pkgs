@@ -70,6 +70,8 @@
             libXNVCtrl = prev.linuxPackages.nvidia_x11.settings.libXNVCtrl;
             mangohud32 = prev.pkgsi686Linux.mangohud;
           };
+
+          biber = prev.callPackage ./outputs/biber.nix { };
         };
       };
 
