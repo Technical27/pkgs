@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = with pkgs; [ dpkg autoPatchelfHook ];
 
-  buildInputs = with pkgs; [ libusb stdenv.cc.cc ];
+  buildInputs = with pkgs; [ libusb1 stdenv.cc.cc ];
 
   unpackPhase = ''
     mkdir pkg
