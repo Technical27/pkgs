@@ -29,6 +29,6 @@ appimageTools.wrapType2 rec {
     cp -r ${appimageContents}/usr/share/icons/ $out/share/
   '';
 
-  extraPkgs = pkgs: [ pkgs.webkitgtk ];
+  extraPkgs = pkgs: [ pkgs.webkitgtk pkgs.openssl_1_1 ];
 }
 
