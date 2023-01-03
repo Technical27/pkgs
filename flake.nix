@@ -103,7 +103,19 @@
             });
           };
 
-          zathura = final.cpkgs.zathuraPkgs.zathuraWrapper;
+          # zathura = final.cpkgs.zathuraPkgs.zathuraWrapper;
+
+          wlroots = prev.wlroots_0_16.overrideAttrs (old: rec {
+            src = prev.fetchFromGitHub {
+              owner = "Technical27";
+              repo = "wlroots";
+              rev = "d57191b8cd2304ff77ca4226841483ea4a74c431";
+              sha256 = "sha256-0gZRMBf3L4OBlYLbD64HSl8n9x4wkmkA6dqYV715yNk=";
+            };
+          });
+
+          sway-unwrapped = prev.sway-unwrapped.override { wlroots_0_16 = final.cpkgs.wlroots; };
+          sway = prev.sway.override { sway-unwrapped = final.cpkgs.sway-unwrapped; };
         };
       };
     };
