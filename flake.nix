@@ -71,39 +71,7 @@
             mangohud32 = prev.pkgsi686Linux.mangohud;
           };
 
-          biber = prev.callPackage ./outputs/biber.nix { };
-
           systemd-networkd-vpnc = prev.callPackage ./outputs/systemd-networkd-vpnc.nix { };
-
-          zathuraPkgs = rec {
-            inherit
-              (prev.zathuraPkgs)
-              gtk
-              zathura_djvu
-              zathura_pdf_poppler
-              zathura_ps
-              zathura_core
-              zathura_cb
-              ;
-
-            zathura_pdf_mupdf = prev.zathuraPkgs.zathura_pdf_mupdf.overrideAttrs (o: {
-              patches = [ ./outputs/zathura.patch ];
-            });
-
-            zathuraWrapper = prev.zathuraPkgs.zathuraWrapper.overrideAttrs (o: {
-              paths = [
-                zathura_core.man
-                zathura_core.dev
-                zathura_core.out
-                zathura_djvu
-                zathura_ps
-                zathura_cb
-                zathura_pdf_mupdf
-              ];
-            });
-          };
-
-          # zathura = final.cpkgs.zathuraPkgs.zathuraWrapper;
 
           wlroots = prev.wlroots_0_16.overrideAttrs (old: rec {
             src = prev.fetchFromGitHub {
@@ -116,6 +84,8 @@
 
           sway-unwrapped = prev.sway-unwrapped.override { wlroots_0_16 = final.cpkgs.wlroots; };
           sway = prev.sway.override { sway-unwrapped = final.cpkgs.sway-unwrapped; };
+
+          rtl88xxau = prev.callPackage ./outputs/rtl88xxau.nix { kernel = final.linuxKernel.packageAliases.linux_latest.kernel; };
         };
       };
     };
