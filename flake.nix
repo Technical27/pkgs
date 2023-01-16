@@ -16,7 +16,7 @@
           pros = prev.callPackage ./outputs/pros { };
           info = (import ./outputs/info { pkgs = prev; }).package;
           wgvpn = prev.callPackage ./outputs/wgvpn { };
-          polybar = prev.polybar.override { i3GapsSupport = true; };
+          polybar = prev.polybar.override { i3Support = true; };
           glfw-wayland = prev.glfw-wayland.overrideAttrs (
             old: {
               patches = [
