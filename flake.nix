@@ -66,26 +66,7 @@
 
           n-link = prev.callPackage ./outputs/n-link.nix { };
 
-          mangohud = prev.callPackage ./outputs/mangohud {
-            libXNVCtrl = prev.linuxPackages.nvidia_x11.settings.libXNVCtrl;
-            mangohud32 = prev.pkgsi686Linux.mangohud;
-          };
-
           systemd-networkd-vpnc = prev.callPackage ./outputs/systemd-networkd-vpnc.nix { };
-
-          wlroots = prev.wlroots_0_16.overrideAttrs (old: rec {
-            src = prev.fetchFromGitHub {
-              owner = "Technical27";
-              repo = "wlroots";
-              rev = "d57191b8cd2304ff77ca4226841483ea4a74c431";
-              sha256 = "sha256-0gZRMBf3L4OBlYLbD64HSl8n9x4wkmkA6dqYV715yNk=";
-            };
-          });
-
-          sway-unwrapped = prev.sway-unwrapped.override { wlroots_0_16 = final.cpkgs.wlroots; };
-          sway = prev.sway.override { sway-unwrapped = final.cpkgs.sway-unwrapped; };
-
-          rtl88xxau = prev.callPackage ./outputs/rtl88xxau.nix { kernel = final.linuxKernel.packageAliases.linux_latest.kernel; };
         };
       };
     };
