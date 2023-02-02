@@ -8,59 +8,16 @@
     overlays = {
       main = final: prev: {
         cpkgs = {
-          gruvbox = {
-            theme = prev.callPackage ./outputs/gruvbox.nix { };
-            icons = prev.callPackage ./outputs/gruvbox.nix { icons = true; };
-          };
-
-          pros = prev.callPackage ./outputs/pros { };
-          info = (import ./outputs/info { pkgs = prev; }).package;
           wgvpn = prev.callPackage ./outputs/wgvpn { };
           polybar = prev.polybar.override { i3Support = true; };
-          glfw-wayland = prev.glfw-wayland.overrideAttrs (
-            old: {
-              patches = [
-                ./outputs/glfw/0002-Don-t-crash-on-calls-to-focus-or-icon.patch
-                ./outputs/glfw/0003-fix-broken-opengl-screenshots-on-mutter.patch
-                ./outputs/glfw/0004-Do-not-crash-on-window-position-set.patch
-                # NOTE: This is now a file instead of a list...
-                old.patches
-              ];
-            }
-          );
-          cemu = prev.libsForQt5.callPackage ./outputs/cemu.nix { };
-          firebird = prev.libsForQt5.callPackage ./outputs/firebird.nix { };
-          joplin = prev.joplin-desktop.overrideAttrs (old: rec {
-            version = "2.5.10";
-            src = prev.fetchurl {
-              url = "https://github.com/laurent22/joplin/releases/download/v${version}/Joplin-${version}.AppImage";
-              sha256 = "sha256-636/SifcawS1fdsrSCAASvT147EKn02IXN7DBZRfXME=";
-            };
-          });
           autovpn = prev.callPackage ./outputs/autovpn.nix { };
 
           guilded = prev.callPackage ./outputs/guilded.nix { };
           badlion-client = prev.callPackage ./outputs/badlion.nix { };
-          grapejuice = prev.callPackage ./outputs/roblox { };
-          gamescope = prev.callPackage ./outputs/gamescope { };
-
-          vscodium = prev.callPackage ./outputs/vscodium.nix { };
-
-          robotmeshnative = prev.callPackage ./outputs/robotmeshnative.nix { };
 
           soundux = prev.callPackage ./outputs/soundux.nix { };
 
-          neo = prev.callPackage ./outputs/neo.nix { };
-
-          ancs4linux = prev.callPackage ./outputs/ancs4linux { };
           fusion360-wine = prev.callPackage ./outputs/fusion360-wine { };
-
-          olive = prev.libsForQt5.callPackage ./outputs/olive.nix {
-            inherit (prev.darwin.apple_sdk) CoreFoundation;
-            opencolorio = prev.callPackage ./outputs/opencolorio.nix {
-              inherit (prev.darwin.apple_sdk) Carbon GLUT Cocoa;
-            };
-          };
 
           pcem = prev.callPackage ./outputs/pcem.nix { };
 
