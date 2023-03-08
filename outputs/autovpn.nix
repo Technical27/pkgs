@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "autovpn";
-  version = "unstable-2022-10-23";
+  version = "unstable-2023-03-08";
 
   src = fetchFromGitHub {
     owner = "Technical27";
     repo = pname;
-    rev = "2161639021565fe4c31a54405dff4d7444274acf";
-    sha256 = "sha256-/LiTjqhnS+jV3QeMoEI/CrnD0ivlO3ECWqkwef9p2N8=";
+    rev = "c281a5614d10555017458a40d30cd7697d184b1b";
+    sha256 = "sha256-QeIjBLpnPLtUjTFkkRvylxIZ/uhBDYe2o3BQPjkr+zU=";
   };
 
-  cargoSha256 = "sha256-f/5KbDkgOLEtTfWRqRrwEcBv0f9m74kdoNdwVuFvqu8=";
+  cargoSha256 = "sha256-m5PQgDNLnbO1toAbWlVFQVGb88ZNXZVOF3Qam5wTOGg=";
 
   nativeBuildInputs = [
     pkg-config
