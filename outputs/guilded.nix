@@ -1,55 +1,16 @@
-{ fetchurl
-, dpkg
-, autoPatchelfHook
-, makeDesktopItem
-, lib
-, stdenv
-, wrapGAppsHook
-, alsaLib
-, at-spi2-atk
-, at-spi2-core
-, atk
-, cairo
-, cups
-, dbus
-, expat
-, fontconfig
-, freetype
-, gdk-pixbuf
-, glib
-, gtk3
-, libcxx
-, libdrm
-, libnotify
-, libpulseaudio
-, libuuid
-, libX11
-, libXScrnSaver
-, libXcomposite
-, libXcursor
-, libXdamage
-, libXext
-, libXfixes
-, libXi
-, libXrandr
-, libXrender
-, libXtst
-, libxcb
-, mesa
-, nspr
-, nss
-, pango
-, systemd
-, libappindicator-gtk3
-, libdbusmenu
-}:
+{ fetchurl, dpkg, autoPatchelfHook, makeDesktopItem, lib, stdenv, wrapGAppsHook
+, alsaLib, at-spi2-atk, at-spi2-core, atk, cairo, cups, dbus, expat, fontconfig
+, freetype, gdk-pixbuf, glib, gtk3, libcxx, libdrm, libnotify, libpulseaudio
+, libuuid, libX11, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext
+, libXfixes, libXi, libXrandr, libXrender, libXtst, libxcb, mesa, nspr, nss
+, pango, systemd, libappindicator-gtk3, libdbusmenu }:
 
 stdenv.mkDerivation rec {
   pname = "guilded";
   version = "unstable-2021-12-15";
   src = fetchurl {
     url = "https://www.guilded.gg/downloads/Guilded-Linux.deb";
-    sha256 = "sha256-/B1OumY1/2MSsZa2krs7VGvz7oYR/yaDz8zmBWo6Pq0=";
+    sha256 = "sha256-AOKKySTX8aYBuoAxMcuMl3kvsMDKXvd9jN+6v/KlxgE=";
   };
 
   nativeBuildInputs = [
